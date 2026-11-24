@@ -4,6 +4,7 @@ dek: "A loving roast of a man who cannot tell a story in the order it happened."
 front: Screen
 date: 2026-10-11
 read: 4 min
+author: HM
 ---
 
 Somewhere right now Christopher Nolan is making breakfast, and he has started with the dishes.

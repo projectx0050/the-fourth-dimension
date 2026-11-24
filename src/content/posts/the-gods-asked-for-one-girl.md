@@ -4,6 +4,7 @@ dek: "On Nolan's Odyssey, and the oldest lie men tell."
 front: Society
 date: 2026-11-25
 read: 3 min
+author: HM
 cover: /covers/odyssey.jpg
 thumb: /covers/odyssey-thumb.jpg
 ---

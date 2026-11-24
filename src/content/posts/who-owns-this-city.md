@@ -4,6 +4,7 @@ dek: "Not the name on the building. Look at who cleans it at 4 a.m."
 front: Society
 date: 2026-10-06
 read: 3 min
+author: HM
 ---
 
 Pick a city. Any city. Now ask yourself who runs it.

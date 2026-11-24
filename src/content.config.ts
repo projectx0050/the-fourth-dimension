@@ -9,6 +9,7 @@ const posts = defineCollection({
     front: z.string(),
     date: z.coerce.date(),
     read: z.string(),
+    author: z.string().default("HM"),
     cover: z.string().optional(),
     thumb: z.string().optional(),
     description: z.string().optional(),

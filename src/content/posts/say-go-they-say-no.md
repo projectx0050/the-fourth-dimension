@@ -4,6 +4,7 @@ dek: "Every pushy button on the internet is training you to resist. Good."
 front: Mind
 date: 2026-10-15
 read: 3 min
+author: HM
 ---
 
 BUY NOW. SIGN UP TODAY. ONLY 3 LEFT. CLICK HERE BEFORE IT'S TOO LATE.

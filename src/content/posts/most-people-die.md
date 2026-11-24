@@ -4,6 +4,7 @@ dek: "A man rode the train dead for hours. The train was full."
 front: Society
 date: 2026-10-22
 read: 4 min
+author: HM
 ---
 
 There is a scene in Michael Mann's *Collateral* that should have ruined the city for everyone who watched it. A hitman, bored and almost kind, tells a cab driver about a man who died on a subway train in Los Angeles. He did not fall. He did not scream. He sat down, died, and kept riding. Hours passed. People got on. People got off. Nobody noticed.
