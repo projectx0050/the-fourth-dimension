@@ -2,7 +2,7 @@
 
 export const REACTIONS = ["felt", "disturbed", "think", "disagree"];
 
-// Same statements as migrations/0001_init.sql, so the site still works if nobody ran the migration.
+// Same as migrations/*.sql, so the site still works if nobody ran the migrations.
 const SCHEMA = [
   `CREATE TABLE IF NOT EXISTS comments (id INTEGER PRIMARY KEY AUTOINCREMENT, slug TEXT NOT NULL, name TEXT NOT NULL DEFAULT '', body TEXT NOT NULL, created_at TEXT NOT NULL, ip_hash TEXT, hidden INTEGER NOT NULL DEFAULT 0)`,
   `CREATE INDEX IF NOT EXISTS comments_by_slug ON comments (slug, created_at DESC)`,
@@ -26,11 +26,19 @@ export async function guard(context) {
   if (!env.DB) return fail("Comments and reactions aren't switched on yet.", 503);
   if (!schemaReady) {
     await env.DB.batch(SCHEMA.map((s) => env.DB.prepare(s)));
+    // 0002: owner_hash and edited_at. ALTER TABLE can't say IF NOT EXISTS, so check first.
+    const { results } = await env.DB.prepare(`PRAGMA table_info(comments)`).all();
+    const have = new Set(results.map((c) => c.name));
+    const add = ["owner_hash", "edited_at"].filter((c) => !have.has(c));
+    if (add.length) {
+      try { await env.DB.batch(add.map((c) => env.DB.prepare(`ALTER TABLE comments ADD COLUMN ${c} TEXT`))); }
+      catch (e) { if (!/duplicate column/i.test(String(e?.message || e))) throw e; }
+    }
     schemaReady = true;
   }
   const slug = String(params.slug || "");
   if (!/^[a-z0-9-]{1,120}$/.test(slug) || !(await knownSlugs(env, request)).has(slug)) return fail("Unknown article.", 404);
-  if (request.method === "POST") {
+  if (request.method !== "GET") {
     const origin = request.headers.get("origin");
     if (origin && new URL(origin).host !== new URL(request.url).host) return fail("Forbidden.", 403);
   }
@@ -48,6 +56,15 @@ async function knownSlugs(env, request) {
     slugCache = slugCache || new Set();
   }
   return slugCache;
+}
+
+/** Anonymous browser id, as made by the page (crypto.randomUUID). */
+export const validCid = (c) => typeof c === "string" && /^[A-Za-z0-9-]{8,64}$/.test(c);
+
+/** Hash of the browser id stored with a comment. Unsalted on purpose, so changing IP_SALT never orphans comments. */
+export async function ownerHash(cid) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`t4d-owner:${cid}`));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
 export async function ipHash(request, env) {

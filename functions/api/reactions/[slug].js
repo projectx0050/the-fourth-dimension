@@ -1,6 +1,4 @@
-import { guard, json, fail, ipHash, allow, readJson, REACTIONS } from "../../../server/api.js";
-
-const validCid = (c) => typeof c === "string" && /^[A-Za-z0-9-]{8,64}$/.test(c);
+import { guard, json, fail, ipHash, allow, readJson, REACTIONS, validCid } from "../../../server/api.js";
 
 async function state(env, slug, cid) {
   const [counts, mine] = await env.DB.batch([

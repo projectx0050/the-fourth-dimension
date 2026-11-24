@@ -184,3 +184,17 @@ footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-
 /* Site additions */
 .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 .nf h1{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem, 9vw, 3.4rem);line-height:1;letter-spacing:-.03em;margin:2rem 0 1rem}
+/* Own comments: edit / delete */
+.clist .ctag{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-left:8px;padding:.1rem .35rem;border:1px solid var(--rule);border-radius:3px}
+.cactions{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center;margin-top:.45rem}
+.cactions span{font-size:.95rem}
+.clink{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--link);background:none;border:0;padding:.35rem 0;cursor:pointer}
+.clink:hover{text-decoration:underline}
+.clink.danger{color:#B3261E}
+:root[data-theme="dark"] .clink.danger{color:#F2918A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .clink.danger{color:#F2918A}}
+.cconfirm{padding:.5rem .7rem;border:1px solid var(--rule);border-radius:4px;background:var(--card)}
+.clist .cedit{margin-top:.5rem}
+.clist .cedit .cactions{margin-top:0}
+.clist li .note{margin-top:.3rem;min-height:0}
+.clist li .note:empty{display:none}

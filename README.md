@@ -46,7 +46,20 @@ npx wrangler pages dev dist --d1 DB=local   # site + API + local D1
 - `src/pages/`: home, `[slug]` article, about, calendar, 404
 - `src/scripts/`: lens masthead (GSAP), cover art, share-this-line, listen, reactions/comments, calendar
 - `functions/api/`: `comments/[slug]` and `reactions/[slug]` (Pages Functions)
-- `server/api.js`: shared API helpers (validation, rate limits, honeypot)
-- `migrations/`: D1 schema
+- `server/api.js`: shared API helpers (validation, rate limits, honeypot, owner hash)
+- `migrations/`: D1 schema. Run them in order. The API also applies them itself if they're missing.
+
+## Comments API
+
+`/api/comments/<slug>`. All write requests send the browser's anonymous `cid` (kept in `localStorage` as `t4d-cid`).
+
+| Method | Body | Notes |
+|---|---|---|
+| `GET ?cid=` | | Latest 200. Each comment has `mine: true` if this browser posted it. |
+| `POST` | `{ name, text, cid, website }` | `website` is the honeypot. 3/min and 20/day per IP. |
+| `PATCH` | `{ id, name, text, cid }` | Own comments only. Same checks as POST. Sets `edited` if anything changed. 10/min and 60/day. |
+| `DELETE` | `{ id, cid }` | Own comments only. Removes the row. 10/min and 60/day. |
+
+Ownership: the server stores `SHA-256("t4d-owner:" + cid)` as `owner_hash`, never the raw ID, and checks it on PATCH and DELETE. Comments with no `owner_hash` (from before this feature) can't be edited.
 - `public/og/`: share images for posts without a cover. Make them with `npm run og` (needs Playwright and a running `astro preview`).
 - `design/`: the approved prototype and covers, kept for reference

@@ -10,8 +10,9 @@ Takes about 10 minutes. Everything is free tier. Use your phone browser and go t
 4. Open the new database, then the **Console** tab.
 5. Open `migrations/0001_init.sql` in this repo on GitHub, tap **Raw**, and copy all of it.
 6. Paste it into the Console and tap **Execute**.
+7. Do the same with `migrations/0002_comment_owners.sql`. It adds the columns that let readers edit and delete their own comments.
 
-   (This step is optional. The site also creates the tables itself on its first comment or reaction. Running it now means you can check that it worked.)
+   (Steps 5–7 are optional. The site creates the tables and columns itself on its first comment or reaction. If 0002 says "duplicate column name", the site already did it, so there's nothing to do.)
 
 ## 2. Connect the repo
 
@@ -45,13 +46,21 @@ Takes about 10 minutes. Everything is free tier. Use your phone browser and go t
 
 Push to `main` and Cloudflare rebuilds the site by itself.
 
+## Already live? Adding edit/delete
+
+If the site and database were set up before readers could edit or delete their own comments, you don't need to do anything. On its next request the site adds the two new columns (`owner_hash`, `edited_at`) by itself. To do it by hand instead, run `migrations/0002_comment_owners.sql` in the D1 Console as in step 1.
+
+Comments posted before this change have no owner, so nobody can edit or delete them except you, using the SQL below.
+
 ## Moderating comments
+
+Readers can edit and delete their own comments, but only from the browser they posted from. There is no sign-in: the browser keeps a random ID, and the database stores only a hash of it. If a reader clears their browser data or switches phones, they can't change their old comments any more. You can always change any comment here.
 
 D1 → `fourth-dimension` → **Console**:
 
 ```sql
--- latest comments
-SELECT id, slug, name, body, created_at FROM comments ORDER BY id DESC LIMIT 50;
+-- latest comments (edited_at is set when the reader edited it)
+SELECT id, slug, name, body, created_at, edited_at FROM comments ORDER BY id DESC LIMIT 50;
 -- hide one (keeps a record)
 UPDATE comments SET hidden = 1 WHERE id = 123;
 -- or delete it
