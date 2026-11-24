@@ -2,7 +2,7 @@
 
 *What you were trained not to see.*
 
-A blog about the hidden layer of reality, for the general public. Live at https://the-fourth-dimension.pages.dev.
+A blog about the hidden layer of reality, for the general public. Live at https://thefourthdimension.pages.dev.
 
 Built with Astro as a static site, hosted on Cloudflare Pages. Comments and reactions run on Pages Functions with a D1 database. See **[DEPLOY.md](DEPLOY.md)** for setup.
 

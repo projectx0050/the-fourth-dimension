@@ -1,4 +1,4 @@
-export const SITE = "https://the-fourth-dimension.pages.dev";
+export const SITE = "https://thefourthdimension.pages.dev";
 export const SITE_NAME = "The Fourth Dimension";
 export const TAGLINE = "What you were trained not to see.";
 export const SITE_DESCRIPTION =

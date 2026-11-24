@@ -19,7 +19,7 @@ Takes about 10 minutes. Everything is free tier. Use your phone browser and go t
    (If you only see a Workers screen, look for the link "Looking to deploy Pages? Get started".)
 2. Choose **GitHub** and allow access to `projectx0050/the-fourth-dimension`. Select it and tap **Begin setup**.
 3. Fill in:
-   - **Project name:** `the-fourth-dimension` (this gives `the-fourth-dimension.pages.dev`)
+   - **Project name:** `thefourthdimension` (this gives `thefourthdimension.pages.dev`)
    - **Production branch:** `main`
    - **Framework preset:** `Astro`
    - **Build command:** `npm run build`
@@ -30,7 +30,7 @@ Takes about 10 minutes. Everything is free tier. Use your phone browser and go t
 
 ## 3. Bind the database to the site
 
-1. Workers & Pages → **the-fourth-dimension** → **Settings** → **Bindings** → **Add** → **D1 database**.
+1. Workers & Pages → **thefourthdimension** → **Settings** → **Bindings** → **Add** → **D1 database**.
 2. **Variable name:** `DB` (capitals, exactly that). **D1 database:** `fourth-dimension`. Tap **Save**.
 3. Do this for **Production**. If there is a Preview environment selector, do it there too if you want comments on preview links.
 4. Optional but recommended: Settings → **Variables and Secrets** → **Add**. Name it `IP_SALT`, choose type **Secret**, and set the value to any long random text. This keeps the stored IP fingerprints unguessable.
@@ -38,7 +38,7 @@ Takes about 10 minutes. Everything is free tier. Use your phone browser and go t
 
 ## 4. Check it
 
-- Open https://the-fourth-dimension.pages.dev, open an article, tap a reaction and post a test comment.
+- Open https://thefourthdimension.pages.dev, open an article, tap a reaction and post a test comment.
 - If you see "Comments and reactions aren't switched on yet", the `DB` binding is missing or you skipped the redeploy in step 3.5.
 
 ## Every day after that
