@@ -1,0 +1,1060 @@
+<title>The Fourth Dimension</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one calm reading column over an ordinary surface; a moving lens in the masthead shows the layer underneath. Yellow = the people. */
+:root{
+  --paper:#F3F4F1; --card:#FFFFFF; --ink:#1F232B; --muted:#5D636E; --rule:#D8DBD5;
+  --mark:#FFD84D; --mark-ink:#1F232B; --link:#24408F;
+  --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --col:38rem;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#15181D; --card:#1C2027; --ink:#E7E6E0; --muted:#9BA1AB; --rule:#2B3039;
+  --mark:#E9C53F; --mark-ink:#15181D; --link:#9DB3F2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#15181D; --card:#1C2027; --ink:#E7E6E0; --muted:#9BA1AB; --rule:#2B3039;
+  --mark:#E9C53F; --mark-ink:#15181D; --link:#9DB3F2; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:1.15rem;line-height:1.7;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0 3rem}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--paper)}
+.wrap{max-width:var(--col);margin:0 auto}
+a{color:var(--link);text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--link);outline-offset:3px;border-radius:3px}
+mark{background:linear-gradient(transparent 12%, var(--mark) 12%, var(--mark) 88%, transparent 88%);color:var(--mark-ink);padding:0 .15em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* Masthead */
+.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:var(--paper);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.brand{font-family:var(--display);font-weight:800;font-size:1.15rem;letter-spacing:-.01em;color:var(--ink);text-decoration:none}
+.nav{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+.nav a,.nav button{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;
+  background:none;border:0;padding:8px 8px;cursor:pointer;border-radius:4px}
+.nav a[aria-current="page"]{color:var(--ink);background:var(--mark);color:var(--mark-ink)}
+.mast{padding-block:2.6rem 1.6rem;border-bottom:1px solid var(--rule)}
+.mast h1{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem, 11vw, 4.4rem);line-height:.95;letter-spacing:-.03em;margin:0;text-wrap:balance}
+.tag{font-family:var(--mono);font-size:.8rem;letter-spacing:.04em;color:var(--muted);margin:.9rem 0 0}
+.dateline{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* Lists */
+.label{font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:2.4rem 0 .8rem}
+.lead{padding-block:1.8rem;border-bottom:1px solid var(--rule)}
+.lead h2{font-family:var(--display);font-weight:800;font-size:clamp(1.9rem, 7vw, 2.6rem);line-height:1.05;letter-spacing:-.02em;margin:.4rem 0 .7rem;text-wrap:balance}
+.lead h2 a,.post h3 a{color:var(--ink);text-decoration:none}
+.lead h2 a:hover,.post h3 a:hover{text-decoration:underline;text-decoration-color:var(--mark);text-decoration-thickness:4px}
+.lead p{margin:0;color:var(--muted)}
+.posts{display:flex;flex-direction:column}
+.post{padding-block:1.2rem;border-bottom:1px solid var(--rule)}
+.post h3{font-family:var(--display);font-weight:700;font-size:1.35rem;line-height:1.2;margin:.25rem 0 .35rem;text-wrap:balance}
+.post p{margin:0;color:var(--muted);font-size:1.02rem}
+.meta{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.meta .front{color:var(--ink)}
+
+.upcoming{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.upcoming li{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:.6rem 0;border-bottom:1px dashed var(--rule);font-family:var(--display);font-weight:500;font-size:1.05rem;line-height:1.3}
+.upcoming li span{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+
+/* Signup */
+.signup{margin-top:2.6rem;padding:1.4rem;background:var(--card);border:1px solid var(--rule);border-radius:6px}
+.signup h3{font-family:var(--display);font-weight:800;font-size:1.4rem;line-height:1.15;margin:0 0 .3rem}
+.signup p{margin:0 0 1rem;color:var(--muted);font-size:1rem}
+.signup form{display:flex;gap:8px;flex-wrap:wrap}
+.signup input{flex:1 1 12rem;min-width:0;font:inherit;font-size:1rem;padding:.7rem .8rem;border:1px solid var(--rule);border-radius:4px;background:var(--paper);color:var(--ink)}
+.btn{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;padding:.8rem 1rem;border:0;border-radius:4px;background:var(--ink);color:var(--paper);cursor:pointer}
+.note{font-family:var(--mono);font-size:.74rem;color:var(--muted);margin-top:.7rem;min-height:1em}
+
+/* Article */
+.article{padding-block:2rem 1rem}
+.article h1{font-family:var(--display);font-weight:800;font-size:clamp(2.1rem, 8.5vw, 3.2rem);line-height:1.02;letter-spacing:-.025em;margin:.6rem 0 1rem;text-wrap:balance}
+.article .dek{font-size:1.2rem;color:var(--muted);font-style:italic;margin:0 0 1.4rem}
+.article .body p{margin:0 0 1.25rem}
+.article .body h2{font-family:var(--display);font-weight:700;font-size:1.45rem;line-height:1.2;margin:2.2rem 0 .8rem}
+.article .body blockquote{margin:1.8rem 0;padding:0 0 0 1rem;border-left:4px solid var(--mark);font-family:var(--display);font-weight:700;font-size:1.4rem;line-height:1.25}
+.sign{font-family:var(--display);font-weight:700;margin-top:2rem}
+.back{display:inline-block;font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;margin-top:1.4rem}
+.progress{position:fixed;left:0;right:0;top:env(safe-area-inset-top, 0px);height:3px;z-index:6;background:var(--mark);transform-origin:0 50%;transform:scaleX(0)}
+.next{margin-top:2.4rem;padding-top:1.2rem;border-top:1px solid var(--rule)}
+
+/* Calendar */
+.cal{margin-top:.4rem;background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:1rem}
+.cal-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:.6rem}
+.cal-head h3{font-family:var(--display);font-weight:800;font-size:1.25rem;margin:0}
+.cal-head button{font-family:var(--mono);font-size:1rem;width:40px;height:40px;border:1px solid var(--rule);border-radius:4px;background:var(--paper);color:var(--ink);cursor:pointer}
+.cal-head button:disabled{opacity:.35;cursor:default}
+.grid{display:grid;grid-template-columns:repeat(7, 1fr);gap:4px;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.dow{font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:center;padding-bottom:4px}
+.day{aspect-ratio:1/1;max-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.9rem;border-radius:4px;border:1px solid transparent;background:none;color:var(--ink);cursor:default;padding:0;font-family:inherit}
+.day.blank{visibility:hidden}
+.day.ev{background:var(--mark);color:var(--mark-ink);font-weight:500;cursor:pointer}
+.day.today{border-color:var(--ink)}
+.day.sel{outline:2px solid var(--link);outline-offset:1px}
+.events{list-style:none;margin:1rem 0 0;padding:0;display:flex;flex-direction:column}
+.events li{display:grid;grid-template-columns:3.2rem 1fr;gap:10px;padding:.55rem 0;border-top:1px solid var(--rule);font-size:1rem;line-height:1.35}
+.events li b{font-family:var(--mono);font-weight:500;font-size:.78rem;color:var(--muted);padding-top:.15rem}
+.events li.on{background:linear-gradient(90deg, color-mix(in srgb, var(--mark) 35%, transparent), transparent)}
+.cal-note{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:.8rem}
+
+/* About */
+.about h1{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem, 9vw, 3.4rem);line-height:1;letter-spacing:-.03em;margin:2rem 0 1rem}
+.about p{margin:0 0 1.2rem}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.home{display:block}
+@media (min-width:1000px){
+  .wrap{max-width:66rem}
+  .home{display:grid;grid-template-columns:minmax(0,1fr) 20rem;gap:3.5rem;align-items:start}
+  .side{position:sticky;top:calc(env(safe-area-inset-top, 0px) + 72px)}
+  .side .signup{margin-top:1.8rem}
+  .article,.about,.page-narrow{max-width:var(--col);margin-inline:auto}
+  .mast h1{font-size:5.2rem}
+}
+
+/* Covers, reactions, comments */
+.cover{display:block;width:100%;max-width:100%;aspect-ratio:16/9;border-radius:6px;background:#191C22}
+.lead .cover{margin:.2rem 0 1.1rem}
+.article .cover{margin:1rem 0 1.4rem}
+.post{display:grid;grid-template-columns:minmax(0,1fr) 96px;gap:16px;align-items:start}
+.post > div{min-width:0}
+.thumb{width:96px;height:96px;max-width:100%;aspect-ratio:1/1;border-radius:6px;display:block;background:#191C22}
+.more{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;display:inline-block;margin-top:.6rem}
+.more:hover{text-decoration:underline}
+.next-card h3{font-family:var(--display);font-weight:700;font-size:1.35rem;line-height:1.2;margin:.3rem 0 .35rem}
+.next-card h3 a{color:var(--ink);text-decoration:none}
+.next-card p{margin:0;color:var(--muted);font-size:1.02rem}
+.engage{margin-top:2.6rem;padding-top:1.6rem;border-top:1px solid var(--rule)}
+.engage h2{font-family:var(--display);font-weight:800;font-size:1.4rem;line-height:1.2;margin:0 0 .8rem}
+.engage h2 + .reacts{margin-bottom:2rem}
+.reacts{display:flex;flex-wrap:wrap;gap:8px}
+.react{font-family:var(--mono);font-size:.8rem;padding:.6rem .85rem;border:1px solid var(--rule);border-radius:999px;background:var(--card);color:var(--ink);cursor:pointer;display:inline-flex;gap:8px;align-items:center}
+.react[aria-pressed="true"]{background:var(--mark);color:var(--mark-ink);border-color:var(--mark)}
+.react b{font-weight:500;opacity:.75;font-variant-numeric:tabular-nums}
+.cform{display:flex;flex-direction:column;gap:8px}
+.cform textarea,.cform input{font:inherit;font-size:1rem;padding:.7rem .8rem;border:1px solid var(--rule);border-radius:4px;background:var(--card);color:var(--ink);width:100%}
+.cform textarea{min-height:6.5rem;resize:vertical}
+.cform .btn{align-self:flex-start}
+.clist{list-style:none;padding:0;margin:1.2rem 0 0;display:flex;flex-direction:column}
+.clist li{padding:.9rem 0;border-top:1px solid var(--rule)}
+.clist .who{font-family:var(--display);font-weight:700;font-size:1rem}
+.clist .when{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-left:8px}
+.clist p{margin:.3rem 0 0;font-size:1.02rem;white-space:pre-wrap;overflow-wrap:anywhere}
+.empty{color:var(--muted);font-size:1rem;margin:1rem 0 0}
+
+/* V4: crown masthead */
+.mast{position:relative;overflow:hidden;border-radius:8px;margin-top:1.2rem;padding:3.4rem 1.4rem 2.2rem;background:#14171C;border-bottom:0}
+.mast canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.mast h1{position:relative;color:#F3F1EA}
+.mast .tag{position:relative;color:#B9BDC4}
+.mast-hint{position:relative;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#7D838C;margin:1.6rem 0 0}
+/* V4: dotted key lines + share popover */
+.key{text-decoration:underline dotted;text-decoration-color:var(--muted);text-decoration-thickness:1.5px;text-underline-offset:4px;cursor:pointer;border-radius:2px}
+.key:hover,.key.active{text-decoration-style:solid;text-decoration-color:var(--link);color:var(--link)}
+.pop{position:absolute;z-index:20;background:var(--ink);color:var(--paper);border-radius:6px;padding:.4rem;display:flex;gap:2px;align-items:center;flex-wrap:wrap;box-shadow:0 8px 24px rgba(0,0,0,.28);max-width:calc(100vw - 32px)}
+.pop .pl{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;opacity:.65;padding:0 .5rem}
+.pop a,.pop button{font-family:var(--mono);font-size:.74rem;color:var(--paper);background:none;border:0;padding:.5rem .6rem;border-radius:4px;text-decoration:none;cursor:pointer}
+.pop a:hover,.pop button:hover{background:rgba(127,127,127,.28)}
+/* V4: listen + share */
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 1rem}
+.tbtn,.sharebar a,.sharebar button{font-family:var(--mono);font-size:.76rem;letter-spacing:.03em;padding:.55rem .8rem;border:1px solid var(--rule);border-radius:999px;background:var(--card);color:var(--ink);cursor:pointer;text-decoration:none;display:inline-flex;align-items:center}
+.tbtn[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.listen{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:.75rem;border:1px solid var(--rule);border-radius:6px;background:var(--card);margin:0 0 1.2rem}
+.listen select{font-family:var(--mono);font-size:.78rem;padding:.5rem;border:1px solid var(--rule);border-radius:4px;background:var(--paper);color:var(--ink);min-width:0;max-width:100%}
+.listen #voice{flex:1 1 11rem}
+.listen .ll{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);flex-basis:100%}
+.sharebar{display:flex;flex-wrap:wrap;gap:6px}
+.share-wrap{margin-top:2.4rem}
+.share-wrap .dateline{margin-bottom:.6rem}
+#topshare{margin:0 0 1.2rem}
+/* V4: General Quarters */
+.wall{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.wall canvas{width:100%;max-width:100%;aspect-ratio:1/1;display:block;border-radius:4px;background:#191C22}
+@media (min-width:700px){.wall{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.rooms{display:grid;grid-template-columns:1fr;gap:10px}
+@media (min-width:700px){.rooms{grid-template-columns:1fr 1fr}.room.open{grid-column:1 / -1}}
+.room{padding:1.1rem;border:1px solid var(--rule);border-radius:6px;background:var(--card);min-width:0}
+.room h3{font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1.2;margin:.2rem 0 .3rem}
+.room p{margin:0;color:var(--muted);font-size:1rem}
+.state{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.room.open .state{color:var(--ink)}
+.room.open .state::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--mark);margin-right:6px;vertical-align:1px}
+.room.locked{background:transparent;border-style:dashed}
+.room .cform{margin-top:1rem}
+.answer{margin:.5rem 0 0;padding-left:.9rem;border-left:2px solid var(--ink);font-size:1rem}
+.answer.wait{border-left-color:var(--rule);color:var(--muted);font-style:italic}
+/* V4: sample profile */
+.pcard{display:flex;gap:16px;align-items:center;margin:1.4rem 0}
+.pcard canvas{width:76px;height:76px;border-radius:50%;flex:none;background:#191C22}
+.pcard h2{font-family:var(--display);font-weight:800;font-size:1.5rem;margin:0}
+.rank{display:inline-block;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;background:var(--mark);color:var(--mark-ink);padding:.25rem .55rem;border-radius:3px;margin-top:.35rem}
+.gnote{font-family:var(--display);font-weight:700;font-size:1.2rem;line-height:1.3;padding:1rem;border:1px solid var(--rule);border-radius:6px;background:var(--card)}
+.gnote small{display:block;font-family:var(--mono);font-weight:400;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:1rem;font-variant-numeric:tabular-nums}
+.stats div{padding:.8rem;border:1px solid var(--rule);border-radius:6px;text-align:center}
+.stats b{display:block;font-family:var(--display);font-size:1.4rem}
+.stats span{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.example{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--rule);padding:.2rem .5rem;border-radius:3px}
+
+/* 4D: brand + lens masthead */
+.brand span{color:var(--muted);font-weight:500}
+.mast{min-height:clamp(260px, 52vw, 420px);display:flex;flex-direction:column;justify-content:flex-end;padding:2rem 1.4rem 1.8rem}
+.mast h1{font-size:clamp(2.6rem, 12vw, 5.4rem);line-height:.9;letter-spacing:-.035em;text-shadow:0 2px 24px rgba(0,0,0,.55)}
+.mast h1 .ghost{display:block;position:relative}
+.mast h1 .ghost::after{content:attr(data-t);position:absolute;left:0;top:0;color:#E9C53F;opacity:.0;transform:translate(3px,-2px);mix-blend-mode:screen;pointer-events:none;transition:opacity .6s}
+.mast:hover h1 .ghost::after{opacity:.55}
+.mast .tag{font-size:.86rem;color:#D3D5D9;max-width:28rem}
+.mast-hint{margin:.9rem 0 0}
+.lens-key{position:absolute;right:max(14px, env(safe-area-inset-right, 0px));top:14px;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:#9FA4AC;background:rgba(10,12,15,.55);padding:.35rem .55rem;border-radius:3px}
+img.cover,img.thumb{object-fit:cover;background:#191C22}
+.lead .cover-link{display:block}
+@media (min-width:1000px){.mast{min-height:440px;padding:3rem 2.6rem 2.6rem}}
+footer{margin-top:3rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-family:var(--mono);font-size:.72rem;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home">The Fourth <span>Dimension</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#home" data-nav="home">Blog</a>
+      <a href="#about" data-nav="about">About</a>
+      <a href="#calendar" data-nav="calendar">Calendar</a>
+      <button id="themeBtn" type="button" aria-label="Switch light or dark mode">Night</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="view"></main>
+
+<div class="wrap">
+  <footer>
+    <span>What you were trained not to see.</span>
+    <span>Prototype · November 2026</span>
+    <span style="flex-basis:100%">Powered by GnS</span>
+  </footer>
+</div>
+
+<script>
+const POSTS = [
+{
+  slug:"the-gods-asked-for-one-girl", front:"Society", date:"Nov 25, 2026", read:"3 min", img:"covers/odyssey.jpg", thumbImg:"covers/odyssey-thumb.jpg",
+  title:"The Gods Asked for One Girl",
+  dek:"On Nolan's Odyssey, and the oldest lie men tell.",
+  body:`
+<p>Somewhere tonight, a man is washing his brother's blood off his hands, and thanking God for the water.</p>
+<p>The holy law. Three thousand years ago, the Greeks lived by it. Zeus gave it to them. Revelation.</p>
+<p>From opening the door to strangers to searching for gods in a beggar's disguise. It is holy all the way, till it reaches the hypocrisy of men.</p>
+<p>A thousand ships. No wind. The sea lay still as a grave, as the king Agamemnon ached for Troy, murdered his own child as a sacrifice. The goddess demanded it. Then the wind came, ships sailed, and history wrote it down, laid it all at Zeus's feet.</p>
+<p>Ten years later, Troy burned. A priestess begged her goddess for mercy. A sword answered. Two heads fell: hers, and the statue's. Another sacrifice in the name of Zeus, keeper of the law of mercy. Holy hypocrisy. <span class="key">Holy hands, bloody knife.</span> Three thousand years on, the knife has only changed hands.</p>
+<p>A god of peace. A god of mercy. A god who blesses. So why does every blessing need a body? Is it the god's will, or the man's hunger, borrowing the god's voice?</p>
+<p>Three thousand years later, the altars have moved indoors. New names, same knife. Under every flag, from the Crusades to the world wars, from every genocide to this morning's headlines, men still kill men in the name of a merciful god, in every faith. Every god in history has been merciful. Ask the graves. God has never killed anyone. He just signs every death certificate. <span class="key">Nobody ever killed for a god. They killed for themselves, and sent him the bill.</span></p>
+<p>Now we know what runs in our blood. A plague. Blaming others for our mistakes. A disease we pass down like the colour of our eyes. It was never us. It was the other man. The other tribe. The other god. And when we ran out of others, we blamed heaven. So stop praying for blessings. You've been sending God your bills for three thousand years and long before, so whatever comes back won't be a blessing. It'll be a curse, with your name on it.</p>
+<p>Somewhere tonight, a man is washing his brother's blood off his hands, and thanking God for the water.</p>`
+},
+{
+  slug:"most-people-die", front:"Society", date:"Oct 22, 2026", read:"4 min",
+  title:"Most People Die Without Seeing the One",
+  dek:"A man rode the train dead for hours. The train was full.",
+  body:`
+<p>There is a scene in Michael Mann's <i>Collateral</i> that should have ruined the city for everyone who watched it. A hitman, bored and almost kind, tells a cab driver about a man who died on a subway train in Los Angeles. He did not fall. He did not scream. He sat down, died, and kept riding. Hours passed. People got on. People got off. Nobody noticed.</p>
+<p>We laughed in the cinema because it was easier than the alternative, which was looking at the person next to us.</p>
+<h2>The crowd is the perfect hiding place</h2>
+<p>We were told that crowds keep us safe. More eyes, more witnesses, more help. The opposite is true. In a crowd every person assumes somebody else has already seen it, already called it in, already cared. A thousand eyes become zero. The more of us there are, the more invisible each of us becomes.</p>
+<p>That man on the train was not killed by his heart. He was buried by our attention, which was busy with a screen, a playlist, a deadline, the back of a stranger's head.</p>
+<blockquote>Most people die without seeing the one. The one person, the one chance, the one warning that was sitting right beside them.</blockquote>
+<h2>You are riding the same train</h2>
+<p>Ask yourself what you walked past today. The neighbour whose lights have not come on in a week. The friend who stopped joking. The bill that quietly changed. The decision about your street, your school, your rent, made in a room you did not know existed, announced in a notice nobody read.</p>
+<p>None of it shouted. That is the trick. The things that end us rarely shout. They sit very still and ride the train with us until we arrive somewhere we never chose.</p>
+<p>I am not here to comfort you. Comfort is what put you to sleep. I am here to tap you on the shoulder, in a carriage full of people, and ask the question nobody else will.</p>
+<p><span class="key">Look up. Who is sitting next to you?</span></p>`
+},
+{
+  slug:"say-go-they-say-no", front:"Mind", date:"Oct 15, 2026", read:"3 min",
+  title:"Say GO and Watch Them Say NO",
+  dek:"Every pushy button on the internet is training you to resist. Good.",
+  body:`
+<p>BUY NOW. SIGN UP TODAY. ONLY 3 LEFT. CLICK HERE BEFORE IT'S TOO LATE.</p>
+<p>Feel that? The small cold clench in your chest. Your thumb hovering, suddenly heavy. That is not hesitation. That is the oldest part of you waking up and saying <i>no one tells me where to walk</i>.</p>
+<h2>The animal that hates the leash</h2>
+<p>Psychologists have a name for it, reactance: the urge to do the opposite the moment someone tries to take a choice away from you. Tell a child not to touch the stove and watch their hand drift toward it. Tell a grown adult they must decide in ten minutes and watch them close the tab.</p>
+<p>The people who sell to you know this. They push anyway, because pushing works on the tired, the scared and the distracted. The more tired you are, the more you obey.</p>
+<blockquote>Every countdown timer is a bet that you are too exhausted to notice the leash.</blockquote>
+<h2>Keep the clench</h2>
+<p>That clench in your chest is not a flaw to be fixed by marketing. It is a guard dog. It is the last free thing in you that still barks when a stranger reaches for the door.</p>
+<p>So I will not tell you to go. I will not tell you to subscribe. You will decide, the way free people decide, slowly and for your own reasons. And if you leave right now, at least you left on your own feet.</p>
+<p><span class="key">The day you stop saying no is the day somebody else starts saying yes for you.</span></p>`
+},
+{
+  slug:"nolan-is-late", front:"Screen", date:"Oct 11, 2026", read:"4 min",
+  title:"Christopher Nolan Will Be Late to His Own Funeral",
+  dek:"A loving roast of a man who cannot tell a story in the order it happened.",
+  body:`
+<p>Somewhere right now Christopher Nolan is making breakfast, and he has started with the dishes.</p>
+<p>The man cannot help it. Give him a story with a beginning, a middle and an end, and he will hand it back to you shuffled, reversed and folded into a shape mathematicians lose sleep over.</p>
+<h2>A short history of a long obsession</h2>
+<p>In <i>Memento</i> he told a story backwards, so we could all feel what it is like to forget why we walked into a room. In <i>Inception</i> he made an hour last a week, so a nap became a career. In <i>Interstellar</i> he sent a father into a black hole and left us to explain relativity to our crying friends in the car park. In <i>Tenet</i> he stopped explaining altogether. Bullets went back into guns. Audiences went back into lobbies, asking each other what just happened.</p>
+<p>Even <i>Oppenheimer</i>, a film about a real man and a real bomb, was cut like a clock that had been dropped down the stairs. History, it turns out, is also non-linear if you edit it hard enough.</p>
+<blockquote>Most directors fight the clock. Nolan dates it, marries it, and then refuses to tell you what year the wedding was.</blockquote>
+<h2>The Möbius strip</h2>
+<p>Here is the thing, though. Take a strip of paper, twist it once, tape the ends. Walk along it and you end up where you started, except you are now on the other side. Same road. Different person.</p>
+<p>That is what his films really do to you. You come out the same door you went in, and you are not quite the same person who went in. Annoying. Brilliant. Late, every time, and somehow exactly on time.</p>
+<p>Chris, if you are reading this, please read it from the bottom up. You will enjoy it more.</p>`
+},
+{
+  slug:"who-owns-this-city", front:"Society", date:"Oct 6, 2026", read:"3 min",
+  title:"Who Owns This City?",
+  dek:"Not the name on the building. Look at who cleans it at 4 a.m.",
+  body:`
+<p>Pick a city. Any city. Now ask yourself who runs it.</p>
+<p>You will think of a mayor, a council, a bank tower with a famous name lit up at night. That is the answer you were trained to give, the way a dog is trained to look at the hand and not at the treat.</p>
+<h2>Turn off the people for one day</h2>
+<p>Imagine the drivers do not drive. The nurses do not come in. The cooks, the cleaners, the teachers, the coders, the kid who stacks the shelves, all of them, stay home for a single day.</p>
+<p>The tower is still lit. The name is still on the building. And the city is dead by lunchtime.</p>
+<p>So who was holding it up?</p>
+<blockquote>A throne is just a chair until a crowd agrees to kneel in front of it.</blockquote>
+<h2>The quiet arithmetic</h2>
+<p>Power has always depended on one simple trick: making the many forget that they are many. Keep them busy. Keep them tired. Keep them arguing with each other about things that do not matter, so nobody counts the room.</p>
+<p>I am not asking you to march anywhere. I am asking you to count the room.</p>
+<p><span class="key">The establishment of a city is not a building. It is you, and the person next to you, and the person next to them.</span> You were the power the whole time. You just signed it over without reading the terms.</p>`
+}];
+
+const UPCOMING = [
+  ["Soft Cover, Sharp Pages","Mind"],
+  ["You Listen to Your Enemy More Than Your Friend","Mind"],
+    ["Let Them Win the Battle","Society"],
+  ["The Mirror Moment","Mind"],
+  ["Build the Machine First, Decorate It Last","Machine"],
+  ["Most People Die Without Seeing the One","Society"]
+];
+
+/* Global days: fixed-date UN international days plus confirmed one-off events. */
+const EVENTS = {
+  "2026-09-08":"International Literacy Day",
+  "2026-09-15":"International Day of Democracy",
+  "2026-09-21":"International Day of Peace",
+  "2026-10-01":"International Day of Older Persons",
+  "2026-10-02":"International Day of Non-Violence",
+  "2026-10-05":"World Teachers' Day",
+  "2026-10-10":"World Mental Health Day",
+  "2026-10-11":"International Day of the Girl Child",
+  "2026-10-16":"World Food Day",
+  "2026-10-17":"International Day for the Eradication of Poverty",
+  "2026-10-24":"United Nations Day",
+  "2026-10-31":"World Cities Day",
+  "2026-11-03":"US midterm elections",
+  "2026-11-10":"World Science Day for Peace and Development",
+  "2026-11-16":"International Day for Tolerance",
+  "2026-11-19":"World Toilet Day",
+  "2026-11-20":"World Children's Day",
+  "2026-11-25":"International Day for the Elimination of Violence against Women",
+  "2026-12-01":"World AIDS Day",
+  "2026-12-03":"International Day of Persons with Disabilities",
+  "2026-12-10":"Human Rights Day",
+  "2026-12-18":"International Migrants Day",
+  "2026-12-20":"International Human Solidarity Day",
+  "2027-01-01":"New Year's Day",
+  "2027-01-24":"International Day of Education",
+  "2027-01-27":"International Holocaust Remembrance Day"
+};
+const TODAY = new Date(2026, 9, 22);
+const MIN = [2026, 8], MAX = [2027, 0];
+let calY = 2026, calM = 9, selKey = null;
+
+const $ = s => document.querySelector(s);
+const pad = n => String(n).padStart(2, "0");
+const key = (y, m, d) => `${y}-${pad(m + 1)}-${pad(d)}`;
+const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+function postLink(p){ return `#${p.slug}`; }
+function coverEl(p, cls){
+  if(cls==="thumb" && (p.thumbImg||p.img)) return `<img class="thumb" src="${p.thumbImg||p.img}" alt="" loading="lazy">`;
+  if(p.img) return `<img class="${cls}" src="${p.img}" alt="${cls==="cover" ? "Cover art for "+p.title : ""}">`;
+  return `<canvas class="${cls}" data-cover="${p.slug}"${cls==="cover" ? ` role="img" aria-label="Cover art for ${p.title}"` : ""}></canvas>`;
+}
+
+function signupHTML(){
+  return `<section class="signup" aria-labelledby="su-h">
+    <h3 id="su-h">Get new posts by email</h3>
+    <p>Free. One email when a new post is out.</p>
+    <form id="signup" novalidate>
+      <label for="email" class="sr">Email address</label>
+      <input id="email" type="email" placeholder="Your email" autocomplete="email">
+      <button class="btn" type="submit">Subscribe</button>
+    </form>
+    <div class="note" id="su-note" role="status"></div>
+  </section>`;
+}
+
+function calendarHTML(){ return `<div class="cal" id="cal"></div>`; }
+
+function renderCalendar(){
+  const el = $("#cal"); if(!el) return;
+  const first = new Date(calY, calM, 1).getDay();
+  const days = new Date(calY, calM + 1, 0).getDate();
+  const atMin = calY === MIN[0] && calM === MIN[1];
+  const atMax = calY === MAX[0] && calM === MAX[1];
+  let cells = ["S","M","T","W","T","F","S"].map(d => `<div class="dow">${d}</div>`).join("");
+  for(let i=0;i<first;i++) cells += `<span class="day blank"></span>`;
+  for(let d=1; d<=days; d++){
+    const k = key(calY, calM, d);
+    const ev = EVENTS[k];
+    const isToday = calY===TODAY.getFullYear() && calM===TODAY.getMonth() && d===TODAY.getDate();
+    const cls = ["day", ev?"ev":"", isToday?"today":"", selKey===k?"sel":""].join(" ");
+    cells += ev
+      ? `<button type="button" class="${cls}" data-k="${k}" aria-label="${MONTHS[calM]} ${d}: ${ev}">${d}</button>`
+      : `<span class="${cls}"${isToday?' aria-label="Today"':''}>${d}</span>`;
+  }
+  const list = Object.keys(EVENTS).filter(k => k.startsWith(`${calY}-${pad(calM+1)}`))
+    .map(k => `<li class="${k===selKey?'on':''}"><b>${MONTHS[calM].slice(0,3)} ${+k.slice(8)}</b><span>${EVENTS[k]}</span></li>`).join("");
+  el.innerHTML = `
+    <div class="cal-head">
+      <button type="button" id="calPrev" aria-label="Previous month" ${atMin?"disabled":""}>&larr;</button>
+      <h3>${MONTHS[calM]} ${calY}</h3>
+      <button type="button" id="calNext" aria-label="Next month" ${atMax?"disabled":""}>&rarr;</button>
+    </div>
+    <div class="grid">${cells}</div>
+    <ul class="events">${list || '<li><b>—</b><span>No global days marked this month.</span></li>'}</ul>
+    <div class="cal-note">Highlighted: days the world is watching. Tap one to see it.</div>`;
+  $("#calPrev").onclick = () => { calM--; if(calM<0){calM=11;calY--;} selKey=null; renderCalendar(); };
+  $("#calNext").onclick = () => { calM++; if(calM>11){calM=0;calY++;} selKey=null; renderCalendar(); };
+  el.querySelectorAll("button.day").forEach(b => b.onclick = () => { selKey = b.dataset.k; renderCalendar(); });
+}
+
+function homeView(){
+  const [lead, ...rest] = POSTS;
+  return `
+  <section class="mast" id="mast">
+    <canvas id="lens" aria-hidden="true"></canvas>
+    <h1><span class="ghost" data-t="The Fourth">The Fourth</span><span class="ghost" data-t="Dimension">Dimension</span></h1>
+    <p class="tag">What you were trained not to see.</p>
+    <p class="mast-hint">Move the lens. Look under the street.</p>
+  </section>
+  <div class="home">
+    <div class="main-col">
+      <article class="lead">
+        <a class="cover-link" href="${postLink(lead)}" aria-hidden="true" tabindex="-1">${coverEl(lead,"cover")}</a>
+        <div class="meta"><span class="front">${lead.front}</span><span>${lead.date}</span><span>${lead.read}</span></div>
+        <h2><a href="${postLink(lead)}">${lead.title}</a></h2>
+        <p>${lead.dek}</p>
+        <a class="more" href="${postLink(lead)}">Read more &rarr;</a>
+      </article>
+      <div class="label">Latest</div>
+      <div class="posts">${rest.map(p => `
+        <article class="post">
+          <div>
+            <div class="meta"><span class="front">${p.front}</span><span>${p.date}</span><span>${p.read}</span></div>
+            <h3><a href="${postLink(p)}">${p.title}</a></h3>
+            <p>${p.dek}</p>
+            <a class="more" href="${postLink(p)}">Read more &rarr;</a>
+          </div>
+          <a href="${postLink(p)}" aria-hidden="true" tabindex="-1">${coverEl(p,"thumb")}</a>
+        </article>`).join("")}</div>
+      <div class="label">Coming soon</div>
+      <ul class="upcoming">${UPCOMING.map(([t,f]) => `<li>${t}<span>${f}</span></li>`).join("")}</ul>
+    </div>
+    <aside class="side">
+      ${signupHTML()}
+      <div class="label">This month on Earth</div>
+      ${calendarHTML()}
+    </aside>
+  </div>`;
+}
+
+function postView(p){
+  const i = POSTS.indexOf(p), nx = POSTS[(i+1)%POSTS.length];
+  return `<div class="page-narrow">
+  <article class="article">
+    <a class="back" href="#home">&larr; All posts</a>
+    <div class="meta" style="margin-top:1.4rem"><span class="front">${p.front}</span><span>${p.date}</span><span>${p.read} read</span></div>
+    <h1>${p.title}</h1>
+    <p class="dek">${p.dek}</p>
+    <div class="tools">
+      <button type="button" class="tbtn" id="shareTop" aria-expanded="false" aria-controls="topshare">Share</button>
+    </div>
+    <div class="sharebar" id="topshare" hidden>${shareBar(p.title, postUrl(p))}</div>
+    <div class="listen" id="listen">
+      <span class="ll">Listen to this article</span>
+      <button type="button" class="tbtn" id="lplay">&#9654; Listen</button>
+      <button type="button" class="tbtn" id="lstop" hidden>&#9632; Stop</button>
+      <label for="voice" class="sr">Voice</label>
+      <select id="voice"><option value="">Default voice</option></select>
+      <label for="rate" class="sr">Speed</label>
+      <select id="rate"><option value="0.85">0.85&times;</option><option value="1" selected>1&times;</option><option value="1.2">1.2&times;</option><option value="1.5">1.5&times;</option></select>
+    </div>
+    ${coverEl(p,"cover")}
+    <div class="body">${p.body}</div>
+    <div class="share-wrap">
+      <div class="dateline">Share this article</div>
+      <div class="sharebar">${shareBar(p.title, postUrl(p))}</div>
+    </div>
+    <section class="engage" aria-label="Reactions and comments">
+      <h2>How did this hit you?</h2>
+      <div class="reacts" id="reacts"></div>
+      <h2 id="ctitle">Comments</h2>
+      <form class="cform" id="cform" novalidate>
+        <label for="cname" class="sr">Your name</label>
+        <input id="cname" maxlength="40" placeholder="Your name (optional)" autocomplete="nickname">
+        <label for="ctext" class="sr">Your comment</label>
+        <textarea id="ctext" maxlength="1000" placeholder="Say it. Links welcome."></textarea>
+        <button class="btn" type="submit">Post comment</button>
+        <div class="note" id="cnote" role="status"></div>
+      </form>
+      <ol class="clist" id="clist"></ol>
+    </section>
+    <div class="next">
+      <div class="dateline">Read next</div>
+      <div class="next-card"><h3><a href="${postLink(nx)}">${nx.title}</a></h3><p>${nx.dek}</p>
+      <a class="more" href="${postLink(nx)}">Read more &rarr;</a></div>
+    </div>
+  </article>
+  ${signupHTML()}</div>`;
+}
+
+/* ---------- Cover art: drawn, not downloaded ---------- */
+const CV = {bg:"#191C22", bg2:"#232830", fig:"#3A4049", fig2:"#565E6A", line:"#2E343D", y:"#FFD84D", txt:"#E7E6E0"};
+function seedRng(str){ let h=1779033703^str.length; for(const c of str){ h=Math.imul(h^c.charCodeAt(0),3432918353); h=h<<13|h>>>19; }
+  return () => { h=Math.imul(h^h>>>16,2246822507); h=Math.imul(h^h>>>13,3266489909); return ((h^=h>>>16)>>>0)/4294967296; }; }
+function person(ctx,x,y,s,col,tilt=0){
+  ctx.fillStyle=col; ctx.beginPath();
+  ctx.arc(x+tilt*s, y-s*1.15, s*0.42, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(x-s*0.85, y+s*1.3);
+  ctx.quadraticCurveTo(x-s*0.8, y-s*0.55, x, y-s*0.6);
+  ctx.quadraticCurveTo(x+s*0.8, y-s*0.55, x+s*0.85, y+s*1.3); ctx.closePath(); ctx.fill();
+}
+function grain(ctx,w,h,r){ const n=Math.floor(w*h/22); for(let i=0;i<n;i++){ ctx.fillStyle=`rgba(255,255,255,${0.015+r()*0.03})`; ctx.fillRect(r()*w, r()*h, 1, 1); } }
+function vignette(ctx,w,h){ const g=ctx.createRadialGradient(w/2,h/2,Math.min(w,h)*0.2,w/2,h/2,Math.max(w,h)*0.75);
+  g.addColorStop(0,"rgba(0,0,0,0)"); g.addColorStop(1,"rgba(0,0,0,0.55)"); ctx.fillStyle=g; ctx.fillRect(0,0,w,h); }
+
+const ART = {
+  crown(ctx,w,h,r){
+    ctx.fillStyle="#14171C"; ctx.fillRect(0,0,w,h);
+    const s = Math.max(3.2, Math.min(w,h*2.4)/95);
+    const wide = w > 620;
+    const cx = wide ? w*0.7 : w*0.5, cy = h*0.6;
+    const cw = Math.min(wide ? w*0.4 : w*0.78, h*1.35), ch = cw*0.5;
+    const pts = [[cx-cw/2,cy+ch/2],[cx-cw/2,cy-ch/2],[cx-cw/4,cy],[cx,cy-ch/2-ch*0.12],[cx+cw/4,cy],[cx+cw/2,cy-ch/2],[cx+cw/2,cy+ch/2],[cx-cw/2,cy+ch/2]];
+    const dist = (x,y) => { let m=1e9; for(let i=0;i<pts.length-1;i++){ const [x1,y1]=pts[i],[x2,y2]=pts[i+1], dx=x2-x1, dy=y2-y1;
+      const t=Math.max(0,Math.min(1,((x-x1)*dx+(y-y1)*dy)/(dx*dx+dy*dy))); m=Math.min(m,Math.hypot(x-x1-t*dx,y-y1-t*dy)); } return m; };
+    let row=0;
+    for(let y=h*0.12; y<h+s*2; y+=s*2.5, row++){
+      const t = y/h, base = Math.round(46 + t*34);
+      for(let x=(row%2)*s*1.1 - s; x<w+s*2; x+=s*2.2){
+        const jx = x+(r()-0.5)*s*0.5, jy = y+(r()-0.5)*s*0.4;
+        const near = dist(jx,jy) < s*1.25;
+        const col = near && r()<0.82 ? `rgba(233,197,63,${0.62+r()*0.25})` : `rgb(${base},${base+4},${base+12})`;
+        person(ctx, jx, jy, s*(0.75+t*0.3), col);
+      }
+    }
+    const g = wide ? ctx.createLinearGradient(0,0,w*0.75,0) : ctx.createLinearGradient(0,0,0,h*0.8);
+    g.addColorStop(0,"rgba(20,23,28,0.94)"); g.addColorStop(0.55,"rgba(20,23,28,0.7)"); g.addColorStop(1,"rgba(20,23,28,0)");
+    ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+    vignette(ctx,w,h); grain(ctx,w,h,r);
+  },
+  quarter(ctx,w,h,r){
+    ctx.fillStyle="#12151A"; ctx.fillRect(0,0,w,h);
+    ctx.fillStyle=CV.bg2; ctx.fillRect(w*0.06,h*0.08,w*0.88,h*0.92);
+    const cols=2+Math.floor(r()*3), rows=3+Math.floor(r()*3), gw=w*0.88/cols, gh=h*0.86/rows;
+    const lucky=[Math.floor(r()*cols), Math.floor(r()*rows)];
+    for(let c=0;c<cols;c++) for(let rr=0;rr<rows;rr++){
+      const x=w*0.06+c*gw+gw*0.2, y=h*0.12+rr*gh+gh*0.18, ww=gw*0.6, hh=gh*0.6;
+      const lit = c===lucky[0]&&rr===lucky[1];
+      ctx.fillStyle = lit ? CV.y : (r()<0.35 ? "#3A3F47" : "#191C22"); ctx.fillRect(x,y,ww,hh);
+      if(lit){ person(ctx, x+ww*0.5, y+hh*0.78, Math.min(ww,hh)*0.16, "#1A1D23"); }
+      if(r()<0.25){ ctx.strokeStyle=CV.fig2; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x-gw*0.1,y+hh+3); ctx.lineTo(x+ww+gw*0.1,y+hh+3); ctx.stroke(); }
+    }
+    if(r()<0.5){ ctx.strokeStyle="#4A515B"; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(0,h*0.3); ctx.quadraticCurveTo(w/2,h*0.38,w,h*0.3); ctx.stroke();
+      for(let i=1;i<5;i++){ ctx.fillStyle="#4A515B"; ctx.fillRect(w*i/5-3,h*0.33,6,8+r()*8); } }
+    vignette(ctx,w,h); grain(ctx,w,h,r);
+  },
+  avatar(ctx,w,h,r){
+    ctx.fillStyle=CV.bg2; ctx.fillRect(0,0,w,h); person(ctx, w/2, h*0.72, h*0.22, CV.fig2); grain(ctx,w,h,r);
+  },
+
+  "most-people-die"(ctx,w,h,r){
+    ctx.fillStyle=CV.bg; ctx.fillRect(0,0,w,h);
+    const winH=h*0.22, winY=h*0.12, n=Math.max(3,Math.round(w/120));
+    for(let i=0;i<n;i++){ const ww=w/n; const g=ctx.createLinearGradient(0,winY,0,winY+winH);
+      g.addColorStop(0,"#2C3340"); g.addColorStop(1,"#1E232B"); ctx.fillStyle=g; ctx.fillRect(i*ww+ww*0.08, winY, ww*0.84, winH);
+      ctx.fillStyle="rgba(255,216,77,0.10)"; ctx.fillRect(i*ww+ww*0.08, winY+winH*(0.3+r()*0.4), ww*0.84*r(), 2); }
+    ctx.strokeStyle=CV.fig2; ctx.lineWidth=Math.max(2,h*0.012); ctx.beginPath(); ctx.moveTo(0,h*0.05); ctx.lineTo(w,h*0.05); ctx.stroke();
+    for(let i=0;i<w/40;i++){ ctx.beginPath(); ctx.moveTo(i*40+20,h*0.05); ctx.lineTo(i*40+20,h*0.09); ctx.stroke(); }
+    const rows=[{y:h*0.58,s:h*0.075,c:CV.fig},{y:h*0.86,s:h*0.11,c:CV.fig2}];
+    const pick = Math.floor(w/(h*0.22)*0.55);
+    rows.forEach((row,ri)=>{ const gap=row.s*2.15; let k=0;
+      for(let x=gap*0.6; x<w+gap; x+=gap*(0.9+r()*0.35), k++){
+        const one = ri===1 && k===pick;
+        person(ctx, x, row.y, row.s, one?CV.y:row.c, one?0.45:(r()-0.5)*0.1);
+      }});
+    ctx.fillStyle=CV.line; ctx.fillRect(0,h*0.97,w,h*0.03);
+    vignette(ctx,w,h); grain(ctx,w,h,r);
+  },
+  "listen-to-your-enemy"(ctx,w,h,r){
+    ctx.fillStyle=CV.bg; ctx.fillRect(0,0,w,h);
+    const mid=h*0.55, steps=Math.floor(w/3);
+    for(let pass=0; pass<2; pass++){
+      ctx.beginPath();
+      for(let i=0;i<=steps;i++){ const t=i/steps, x=t*w;
+        const amp = (pass?0.5:1) * h*0.42*Math.pow(t,2.4) + h*0.01;
+        const y = mid + Math.sin(i*0.9 + r()*0.8)*amp*(0.4+r()*0.6)*(i%2?1:-1);
+        i?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+      const g=ctx.createLinearGradient(0,0,w,0); g.addColorStop(0,CV.fig); g.addColorStop(0.55,CV.fig2); g.addColorStop(1,CV.y);
+      ctx.strokeStyle=g; ctx.lineWidth=pass?1:Math.max(1.5,h*0.008); ctx.globalAlpha=pass?0.5:1; ctx.stroke(); ctx.globalAlpha=1;
+    }
+    person(ctx, w*0.08, h*0.8, h*0.07, CV.fig);
+    ctx.save(); ctx.scale(-1,1); person(ctx, -w*0.93, h*0.82, h*0.12, "#0F1115"); ctx.restore();
+    vignette(ctx,w,h); grain(ctx,w,h,r);
+  },
+  "say-go-they-say-no"(ctx,w,h,r){
+    ctx.fillStyle=CV.bg; ctx.fillRect(0,0,w,h);
+    const fs=Math.min(h*0.72, w*0.34);
+    ctx.font=`800 ${fs}px "Bricolage Grotesque", Arial, sans-serif`; ctx.textBaseline="middle"; ctx.textAlign="left";
+    const word="GO", tw=ctx.measureText(word).width, x0=(w-tw)/2+fs*0.18, y0=h*0.54;
+    ctx.lineWidth=Math.max(1.5,fs*0.02); ctx.strokeStyle=CV.fig2; ctx.strokeText(word,x0,y0);
+    ctx.strokeStyle=CV.y; ctx.lineWidth=Math.max(3,fs*0.07); ctx.lineCap="round"; ctx.lineJoin="round";
+    const nx=x0-fs*0.62, ny=y0, nh=fs*0.62, nw=fs*0.42;
+    ctx.beginPath(); ctx.moveTo(nx+(r()-0.5)*4, ny+nh/2); ctx.lineTo(nx+(r()-0.5)*4, ny-nh/2);
+    ctx.lineTo(nx+nw+(r()-0.5)*4, ny+nh/2); ctx.lineTo(nx+nw+(r()-0.5)*4, ny-nh/2); ctx.stroke();
+    ctx.font=`500 ${Math.max(9,h*0.06)}px "IBM Plex Mono", monospace`; ctx.fillStyle=CV.fig2; ctx.textAlign="right";
+    ctx.fillText("00:00:09", w*0.95, h*0.12);
+    ctx.textAlign="left"; ctx.fillText("ONLY 3 LEFT", w*0.05, h*0.9);
+    ctx.strokeStyle=CV.fig2; ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(w*0.045,h*0.9); ctx.lineTo(w*0.05+ctx.measureText("ONLY 3 LEFT").width,h*0.9); ctx.stroke();
+    vignette(ctx,w,h); grain(ctx,w,h,r);
+  },
+  "nolan-is-late"(ctx,w,h,r){
+    ctx.fillStyle=CV.bg; ctx.fillRect(0,0,w,h);
+    const cx=w/2, cy=h/2, R=Math.min(w*0.3,h*0.62);
+    ctx.strokeStyle=CV.line; ctx.lineWidth=1;
+    for(let i=0;i<60;i++){ const a=i/60*Math.PI*2, l=i%5?R*0.04:R*0.1;
+      ctx.beginPath(); ctx.moveTo(cx+Math.cos(a)*(R*1.25), cy+Math.sin(a)*(R*0.75)); ctx.lineTo(cx+Math.cos(a)*(R*1.25+l), cy+Math.sin(a)*(R*0.75+l*0.6)); ctx.stroke(); }
+    const P=(u,v)=>{ const k=1+v/2*Math.cos(u/2); const x=k*Math.cos(u), y=k*Math.sin(u), z=v/2*Math.sin(u/2);
+      return [cx + x*R*0.62, cy + y*R*0.26 - z*R*0.55]; };
+    const N=140;
+    for(let i=0;i<N;i++){ const u=i/N*Math.PI*2; const a=P(u,-0.55), b=P(u,0.55);
+      const hot = i>N*0.62 && i<N*0.72;
+      ctx.strokeStyle = hot?CV.y:(i%2?CV.fig:CV.fig2); ctx.lineWidth = hot?2:1;
+      ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); ctx.stroke(); }
+    ctx.strokeStyle=CV.txt; ctx.globalAlpha=0.6; ctx.lineWidth=1.2;
+    [-0.55,0.55].forEach(v=>{ ctx.beginPath(); for(let i=0;i<=N*2;i++){ const u=i/(N*2)*Math.PI*4; const p=P(u,v); i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]); } ctx.stroke(); });
+    ctx.globalAlpha=1;
+    ctx.strokeStyle=CV.y; ctx.lineWidth=Math.max(2,R*0.03); ctx.lineCap="round";
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx-R*0.18, cy-R*0.28); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+R*0.34, cy+R*0.06); ctx.stroke();
+    vignette(ctx,w,h); grain(ctx,w,h,r);
+  },
+  "who-owns-this-city"(ctx,w,h,r){
+    const g=ctx.createLinearGradient(0,0,0,h); g.addColorStop(0,"#12151A"); g.addColorStop(1,CV.bg2); ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+    let x=0; const base=h*0.78, towerAt=w*0.52;
+    while(x<w){ const bw=w*(0.05+r()*0.07); const tall=Math.abs(x+bw/2-towerAt)<bw*0.6;
+      const bh = tall? h*0.68 : h*(0.18+r()*0.32);
+      ctx.fillStyle = tall? "#2A303A" : CV.bg; ctx.fillRect(x, base-bh, bw-2, bh);
+      for(let wy=base-bh+6; wy<base-6; wy+=Math.max(6,h*0.04)) for(let wx=x+4; wx<x+bw-6; wx+=Math.max(6,w*0.012))
+        if(r()<0.22){ ctx.fillStyle="rgba(231,230,224,0.18)"; ctx.fillRect(wx,wy,2,3); }
+      if(tall){ ctx.fillStyle="rgba(231,230,224,0.75)"; ctx.fillRect(x+bw*0.15, base-bh+h*0.04, bw*0.7-2, h*0.03); }
+      x+=bw; }
+    const s=Math.max(2.2,h*0.022);
+    for(let row=0; row<4; row++) for(let px=s; px<w; px+=s*2.1){
+      person(ctx, px+(row%2)*s + (r()-0.5)*s*0.6, base + s*1.6 + row*s*2.2, s, row===0?CV.y:(row===1?"#C9A93A":"#8A7530")); }
+    vignette(ctx,w,h); grain(ctx,w,h,r);
+  }
+};
+function drawCovers(){
+  document.querySelectorAll("canvas[data-cover]").forEach(c => {
+    const w=c.clientWidth, h=c.clientHeight; if(!w||!h) return;
+    const dpr=Math.min(2, window.devicePixelRatio||1);
+    c.width=Math.round(w*dpr); c.height=Math.round(h*dpr);
+    const ctx=c.getContext("2d"); ctx.setTransform(dpr,0,0,dpr,0,0);
+    const f=ART[c.dataset.cover] || (c.dataset.cover.startsWith("quarter") ? ART.quarter : null); if(f) f(ctx,w,h,seedRng(c.dataset.cover));
+  });
+}
+
+/* ---------- Reactions and comments ---------- */
+const REACTS=[["felt","Felt it"],["disturbed","Disturbed me"],["think","Made me think"],["disagree","I disagree"]];
+let db=null, myId=null, live=false, curSlug=null;
+let reactDocs={}, commentsBy={}; const commentSubs={};
+const esc = t => String(t).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function meKey(){ return live ? myId : "local"; }
+
+function renderReacts(){
+  const el=$("#reacts"); if(!el||!curSlug) return;
+  const counts={}; Object.values(reactDocs).forEach(d => { const k=d&&d[curSlug]; if(k) counts[k]=(counts[k]||0)+1; });
+  const mine=(reactDocs[meKey()]||{})[curSlug];
+  el.innerHTML = REACTS.map(([k,l]) => `<button type="button" class="react" data-r="${k}" aria-pressed="${mine===k}">${l} <b>${counts[k]||0}</b></button>`).join("");
+  el.querySelectorAll(".react").forEach(b => b.onclick = () => react(b.dataset.r));
+}
+async function react(k){
+  const note=$("#cnote");
+  if(live && !myId){ note.textContent="Sign in to react."; return; }
+  const id=meKey(), mine={...(reactDocs[id]||{})};
+  if(mine[curSlug]===k) delete mine[curSlug]; else mine[curSlug]=k;
+  if(!live){ reactDocs[id]=mine; renderReacts(); return; }
+  try{ await db.doc("reactions/"+id).set(mine); }
+  catch(e){ note.textContent="You can see reactions here, but reacting isn't open to you yet."; }
+}
+function timeAgo(iso){
+  const d=new Date(iso), s=(Date.now()-d)/1000;
+  if(isNaN(s)) return ""; if(s<60) return "just now"; if(s<3600) return Math.floor(s/60)+" min ago";
+  if(s<86400) return Math.floor(s/3600)+" h ago"; return d.toLocaleDateString(undefined,{day:"numeric",month:"short"});
+}
+function renderComments(){
+  const el=$("#clist"); if(!el||!curSlug) return;
+  const list=commentsBy[curSlug]||[];
+  $("#ctitle").textContent = list.length ? `Comments (${list.length})` : "Comments";
+  el.innerHTML = list.length ? list.map(c => `<li><span class="who">${esc(c.name||"Anonymous reader")}</span><span class="when">${esc(timeAgo(c.at))}</span><p>${linkify(c.text||"")}</p></li>`).join("")
+    : `<li class="empty" style="border:0">No comments yet. Be the first to argue.</li>`;
+}
+function subscribeComments(slug){
+  if(!db || commentSubs[slug]) return;
+  commentSubs[slug] = db.collection(`comments/${slug}/items`).orderBy("at","desc").limit(200)
+    .onSnapshot(s => { commentsBy[slug]=s.docs.map(d=>d.data()); if(curSlug===slug) renderComments(); }, () => {});
+}
+function bindCommentForm(){
+  const f=$("#cform"); if(!f) return;
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    const name=$("#cname").value.trim().slice(0,40), text=$("#ctext").value.trim().slice(0,1000), note=$("#cnote");
+    if(!text){ note.textContent="Write something first."; return; }
+    const row={name, text, at:new Date().toISOString(), by: myId||null};
+    if(!live){ (commentsBy[curSlug] ||= []).unshift(row); renderComments(); $("#ctext").value=""; note.textContent="Preview only: this comment isn't saved."; return; }
+    try{ await db.collection(`comments/${curSlug}/items`).add(row); $("#ctext").value=""; note.textContent="Posted."; }
+    catch(err){ note.textContent="Couldn't post. Commenting isn't open to you on this page yet."; }
+  });
+}
+async function initData(){
+  try{
+    if(!window.claude || !window.claude.use) return;
+    const [d,u] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+    if(!d) return;
+    db=d; live=true; myId = u ? await u.id() : null;
+    db.collection("reactions").onSnapshot(s => { reactDocs={}; s.docs.forEach(x => reactDocs[x.id]=x.data()); renderReacts(); }, () => {});
+    if(curSlug){ subscribeComments(curSlug); renderReacts(); }
+    if($("#askform") && !askSub){ askSub = db.collection("questions").orderBy("at","desc").limit(100).onSnapshot(s => { askDocs = s.docs.map(d => d.data()); renderAsk(); }, () => {}); }
+  }catch(e){}
+}
+
+function aboutView(){
+  return `<div class="page-narrow">
+  <section class="about">
+    <h1>About The Fourth Dimension</h1>
+    <p class="dek" style="font-style:italic;color:var(--muted)">You were taught to see in three.</p>
+    <p>Length. Width. Height. School handed you three dimensions and a ruler, and told you that was the world.</p>
+    <p>It isn't. Under every street there is another street. Under every law, another law. Under every smile at the counter, a bill nobody explained.</p>
+    <p>That is the fourth dimension. Not time. Not science fiction. <span class="key">The layer of reality you were trained to walk past.</span></p>
+    <p>No tower. No name. No face. Just someone who stopped walking past.</p>
+    <p>Read slowly. Argue loudly. And if a line here turns your skin cold, don't look away.</p>
+    <p class="sign">That's the door.</p>
+  </section>
+  ${signupHTML()}</div>`;
+}
+
+function calendarView(){
+  return `<div class="page-narrow"><section class="about"><h1>Days the World Watches</h1>
+  <p>International days, elections and moments that touch everyone. We write around them, and sometimes under them.</p></section>
+  ${calendarHTML()}</div>`;
+}
+
+
+const SITE = "https://thefourthdimension.pages.dev";
+function postUrl(p){ return `${SITE}/${p.slug}`; }
+function shareBar(text, url){
+  const e = encodeURIComponent;
+  const items = [
+    ["X", `https://x.com/intent/post?text=${e(text)}&url=${e(url)}`],
+    ["WhatsApp", `https://wa.me/?text=${e(text+" "+url)}`],
+    ["Facebook", `https://www.facebook.com/sharer/sharer.php?u=${e(url)}`],
+    ["Telegram", `https://t.me/share/url?url=${e(url)}&text=${e(text)}`],
+    ["Reddit", `https://www.reddit.com/submit?url=${e(url)}&title=${e(text)}`],
+    ["LinkedIn", `https://www.linkedin.com/sharing/share-offsite/?url=${e(url)}`]];
+  return items.map(([n,h]) => `<a href="${h}" target="_blank" rel="noopener">${n}</a>`).join("") +
+    `<button type="button" data-copy="${esc(url)}">Copy link</button>`;
+}
+async function copyText(t, btn){
+  const old = btn.textContent;
+  try{ await navigator.clipboard.writeText(t); btn.textContent="Copied"; }
+  catch(err){
+    const ta=document.createElement("textarea"); ta.value=t; ta.setAttribute("readonly",""); ta.style.position="fixed"; ta.style.opacity="0";
+    document.body.appendChild(ta); ta.select(); let ok=false; try{ ok=document.execCommand("copy"); }catch(x){} ta.remove();
+    btn.textContent = ok ? "Copied" : "Copy failed";
+  }
+  setTimeout(() => { btn.textContent = old; }, 1600);
+}
+document.addEventListener("click", e => {
+  const c = e.target.closest("[data-copy]"); if(c){ copyText(c.dataset.copy, c); return; }
+  if(!e.target.closest(".pop") && !e.target.closest(".key")) closePop();
+});
+
+/* Share this line */
+let popEl=null;
+function closePop(){ if(popEl){ popEl.remove(); popEl=null; } document.querySelectorAll(".key.active").forEach(k => k.classList.remove("active")); }
+function openPop(k, url){
+  closePop(); k.classList.add("active");
+  const line = `“${k.textContent.trim()}” — The Fourth Dimension`;
+  const e = encodeURIComponent;
+  popEl = document.createElement("div"); popEl.className="pop"; popEl.setAttribute("role","dialog"); popEl.setAttribute("aria-label","Share this line");
+  popEl.innerHTML = `<span class="pl">Share this line</span>
+    <a href="https://x.com/intent/post?text=${e(line)}&url=${e(url)}" target="_blank" rel="noopener">X</a>
+    <a href="https://wa.me/?text=${e(line+" "+url)}" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=${e(url)}&quote=${e(line)}" target="_blank" rel="noopener">Facebook</a>
+    <button type="button" data-copy="${esc(line+" "+url)}">Copy</button>`;
+  document.body.appendChild(popEl);
+  const r = k.getBoundingClientRect(), pw = popEl.offsetWidth, vw = document.documentElement.clientWidth;
+  popEl.style.top = (scrollY + r.bottom + 8) + "px";
+  popEl.style.left = Math.max(16, Math.min(scrollX + r.left, scrollX + vw - pw - 16)) + "px";
+}
+function bindKeys(url){
+  document.querySelectorAll("#view .key").forEach(k => {
+    k.tabIndex = 0; k.setAttribute("role","button"); k.setAttribute("aria-label", "Share this line: " + k.textContent.trim());
+    k.addEventListener("click", ev => { ev.stopPropagation(); openPop(k, url); });
+    k.addEventListener("keydown", ev => { if(ev.key==="Enter"||ev.key===" "){ ev.preventDefault(); openPop(k, url); } });
+  });
+}
+
+/* Listen: the reader's own device voices */
+let speakToken = 0;
+function stopSpeech(){ speakToken++; try{ if(window.speechSynthesis) speechSynthesis.cancel(); }catch(e){} }
+function setupListen(){
+  const box = $("#listen"); if(!box) return;
+  if(!("speechSynthesis" in window) || !window.SpeechSynthesisUtterance){ box.hidden = true; return; }
+  const sel=$("#voice"), play=$("#lplay"), stop=$("#lstop");
+  let voices=[];
+  const fill = () => {
+    voices = speechSynthesis.getVoices(); if(!voices.length) return;
+    const keep = sel.value;
+    sel.innerHTML = voices.map((v,i) => `<option value="${i}">${esc(v.name)} · ${esc(v.lang)}</option>`).join("");
+    const en = voices.findIndex(v => /^en/i.test(v.lang));
+    sel.value = keep && voices[keep] ? keep : String(en >= 0 ? en : 0);
+  };
+  fill(); try{ speechSynthesis.onvoiceschanged = fill; }catch(e){}
+  const label = st => { play.innerHTML = st==="playing" ? "&#10074;&#10074; Pause" : st==="paused" ? "&#9654; Resume" : "&#9654; Listen"; play.setAttribute("aria-pressed", st!=="idle"); stop.hidden = st==="idle"; };
+  let state = "idle";
+  play.onclick = () => {
+    if(state==="playing"){ speechSynthesis.pause(); state="paused"; label(state); return; }
+    if(state==="paused"){ speechSynthesis.resume(); state="playing"; label(state); return; }
+    const parts = [$(".article h1").textContent, ...[...document.querySelectorAll(".article .body > *")].map(n => n.textContent.trim()).filter(Boolean)];
+    stopSpeech(); const my = speakToken; state="playing"; label(state);
+    const next = i => {
+      if(my !== speakToken) return;
+      if(i >= parts.length){ state="idle"; label(state); return; }
+      const u = new SpeechSynthesisUtterance(parts[i]);
+      const v = voices[+sel.value]; if(v) u.voice = v;
+      u.rate = +$("#rate").value || 1;
+      u.onend = () => next(i+1); u.onerror = () => { if(my===speakToken){ state="idle"; label(state); } };
+      speechSynthesis.speak(u);
+    };
+    next(0);
+  };
+  stop.onclick = () => { stopSpeech(); state="idle"; label(state); };
+}
+
+/* General Quarters */
+let askDocs = [], askSub = null;
+function quartersView(){
+  return `<div class="page-narrow">
+  <section class="about">
+    <h1>General Quarters</h1>
+    <p class="dek" style="font-style:italic;color:var(--muted)">Small rooms. Thin walls. Everyone hears everything.</p>
+    <p>This is where the general public lives on this blog. Not the readers in the back row. The ones who talk back.</p>
+  </section>
+  <div class="label">Life in the Quarters</div>
+  <div class="wall">${[1,2,3,4,5,6].map(n => `<canvas data-cover="quarter-${n}" aria-hidden="true"></canvas>`).join("")}</div>
+  <p class="cal-note">Preview. Soon you'll post photos of your own small world here: the kitchen table, the bus stop, the view from your window.</p>
+  <div class="label">The rooms</div>
+  <div class="rooms">
+    <section class="room open" id="ask" aria-labelledby="ask-h">
+      <div class="state">Open</div>
+      <h3 id="ask-h">Ask The General</h3>
+      <p>Ask anything. He answers in his own voice, when he feels like it.</p>
+      <form class="cform" id="askform" novalidate>
+        <label for="askname" class="sr">Your name</label>
+        <input id="askname" maxlength="40" placeholder="Your name (optional)">
+        <label for="asktext" class="sr">Your question</label>
+        <textarea id="asktext" maxlength="600" placeholder="What do you want to ask him?"></textarea>
+        <button class="btn" type="submit">Send question</button>
+        <div class="note" id="asknote" role="status"></div>
+      </form>
+      <ol class="clist" id="asklist"></ol>
+    </section>
+    <div class="room locked"><div class="state">Locked</div><h3>That's a General Idea</h3><p>Short videos from the front line. Opens when the army grows.</p></div>
+    <div class="room locked"><div class="state">Locked</div><h3>Work With The General</h3><p>For brands with something real to say. Opens when the army grows.</p></div>
+    <div class="room locked"><div class="state">Locked</div><h3>The Barracks</h3><p>Where readers gather and talk without me. Opens when the army grows.</p></div>
+  </div>
+  <p style="margin-top:1.6rem"><a class="more" href="#profile">See a sample reader profile &rarr;</a></p>
+  </div>`;
+}
+function renderAsk(){
+  const el = $("#asklist"); if(!el) return;
+  el.innerHTML = askDocs.length ? askDocs.map(q => `<li><span class="who">${esc(q.name||"Anonymous reader")}</span><span class="when">${esc(timeAgo(q.at))}</span><p>${linkify(q.text||"")}</p>${q.answer ? `<p class="answer"><b>The General:</b> ${linkify(q.answer)}</p>` : `<p class="answer wait">Waiting for The General.</p>`}</li>`).join("")
+    : `<li class="empty" style="border:0">No questions yet. Go on. He doesn't bite. Much.</li>`;
+}
+function bindAsk(){
+  const f = $("#askform"); if(!f) return;
+  if(db && !askSub) askSub = db.collection("questions").orderBy("at","desc").limit(100).onSnapshot(s => { askDocs = s.docs.map(d => d.data()); renderAsk(); }, () => {});
+  renderAsk();
+  f.addEventListener("submit", async e => {
+    e.preventDefault();
+    const name=$("#askname").value.trim().slice(0,40), text=$("#asktext").value.trim().slice(0,600), note=$("#asknote");
+    if(!text){ note.textContent = "Write your question first."; return; }
+    const row = {name, text, at:new Date().toISOString(), by: myId||null, answer:null};
+    if(!live){ askDocs.unshift(row); renderAsk(); $("#asktext").value=""; note.textContent="Preview only: this question isn't saved."; return; }
+    try{ await db.collection("questions").add(row); $("#asktext").value=""; note.textContent="Sent. The General will get to it."; }
+    catch(err){ note.textContent="Couldn't send. Asking isn't open to you on this page yet."; }
+  });
+}
+function profileView(){
+  return `<div class="page-narrow"><section class="about">
+    <a class="back" href="#quarters">&larr; General Quarters</a>
+    <p style="margin-top:1.2rem"><span class="example">Example profile</span></p>
+    <div class="pcard"><canvas data-cover="avatar" aria-hidden="true"></canvas>
+      <div><h2>A New Reader</h2><div class="dateline">Their quarter: your city here</div><span class="rank">Civilian</span></div></div>
+    <div class="gnote"><small>A note from The General</small>Another bloody civilian. Try not to get lost.</div>
+    <div class="stats"><div><b>0</b><span>Comments</span></div><div><b>0</b><span>Questions</span></div><div><b>0</b><span>Photos</span></div></div>
+    <p class="cal-note" style="margin-top:1.2rem">Profiles open in the next phase. Readers will sign in with Google, and everything they post lives here.</p>
+  </section></div>`;
+}
+function linkify(t){ return esc(t).replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="nofollow ugc noopener">$1</a>'); }
+
+
+/* ---------- Lens masthead: surface street, hidden layer underneath ---------- */
+let lensState = {x:0.68, y:0.5, r:0.2}, lensLayers = null, lensTween = null, lensFollow = false;
+function buildLens(){
+  const c = $("#lens"); if(!c) { lensLayers=null; return; }
+  const w=c.clientWidth, h=c.clientHeight; if(!w||!h) return;
+  const dpr=Math.min(2, window.devicePixelRatio||1);
+  c.width=Math.round(w*dpr); c.height=Math.round(h*dpr);
+  const mk = () => { const o=document.createElement("canvas"); o.width=c.width; o.height=c.height; const x=o.getContext("2d"); x.setTransform(dpr,0,0,dpr,0,0); return [o,x]; };
+  const [sf, sx] = mk(), [hd, hx] = mk();
+  const people = []; const r = seedRng("fourth"); const s = Math.max(3.4, Math.min(w, h*2.2)/88);
+  const wide = w>620, cx = wide ? w*0.68 : w*0.5, cy = h*0.5, cw = Math.min(wide? w*0.38 : w*0.8, h*1.2), ch = cw*0.5;
+  const pts=[[cx-cw/2,cy+ch/2],[cx-cw/2,cy-ch/2],[cx-cw/4,cy],[cx,cy-ch/2-ch*.12],[cx+cw/4,cy],[cx+cw/2,cy-ch/2],[cx+cw/2,cy+ch/2],[cx-cw/2,cy+ch/2]];
+  const dist=(x,y)=>{let m=1e9;for(let i=0;i<pts.length-1;i++){const[x1,y1]=pts[i],[x2,y2]=pts[i+1],dx=x2-x1,dy=y2-y1;const t=Math.max(0,Math.min(1,((x-x1)*dx+(y-y1)*dy)/(dx*dx+dy*dy)));m=Math.min(m,Math.hypot(x-x1-t*dx,y-y1-t*dy));}return m;};
+  let row=0;
+  for(let y=h*0.18; y<h+s*2; y+=s*2.6, row++){
+    for(let x=(row%2)*s*1.1 - s; x<w+s*2; x+=s*2.25){
+      const jx=x+(r()-0.5)*s*0.5, jy=y+(r()-0.5)*s*0.4, t=jy/h;
+      people.push({x:jx, y:jy, s:s*(0.75+t*0.3), t, crown: dist(jx,jy)<s*1.3 && r()<0.85, cord: r()<0.55});
+    }
+  }
+  // SURFACE: an ordinary evening street, calm and grey
+  let g=sx.createLinearGradient(0,0,0,h); g.addColorStop(0,"#1B1F26"); g.addColorStop(1,"#2A2F37"); sx.fillStyle=g; sx.fillRect(0,0,w,h);
+  let bx=0; while(bx<w){ const bw=w*(0.05+r()*0.08), bh=h*(0.25+r()*0.35); sx.fillStyle="#22262E"; sx.fillRect(bx,h*0.62-bh,bw-3,bh);
+    for(let wy=h*0.62-bh+6; wy<h*0.62-6; wy+=10) for(let wx=bx+4; wx<bx+bw-8; wx+=9) if(r()<0.18){ sx.fillStyle="rgba(240,226,180,0.22)"; sx.fillRect(wx,wy,3,4); }
+    bx+=bw; }
+  people.forEach(p => { const b=Math.round(70+p.t*40); person(sx, p.x, p.y, p.s, `rgb(${b},${b+3},${b+9})`); });
+  // HIDDEN: same crowd, X-ray blue-black, strings from every head, the crowd's own crown in yellow
+  g=hx.createLinearGradient(0,0,0,h); g.addColorStop(0,"#05070B"); g.addColorStop(1,"#0B1018"); hx.fillStyle=g; hx.fillRect(0,0,w,h);
+  hx.strokeStyle="rgba(120,140,170,0.10)"; hx.lineWidth=1;
+  for(let gx=0; gx<w; gx+=22){ hx.beginPath(); hx.moveTo(gx,0); hx.lineTo(gx,h); hx.stroke(); }
+  for(let gy=0; gy<h; gy+=22){ hx.beginPath(); hx.moveTo(0,gy); hx.lineTo(w,gy); hx.stroke(); }
+  people.forEach(p => { if(!p.cord || p.crown) return; hx.strokeStyle="rgba(170,180,195,0.28)"; hx.lineWidth=0.8;
+    hx.beginPath(); hx.moveTo(p.x, p.y-p.s*1.5); hx.quadraticCurveTo(p.x+(r()-0.5)*40, p.y*0.4, w*0.5+(p.x-w*0.5)*0.15, -10); hx.stroke(); });
+  people.forEach(p => {
+    if(p.crown){ person(hx, p.x, p.y, p.s, "rgba(233,197,63,0.95)"); }
+    else { hx.strokeStyle="rgba(160,175,195,0.55)"; hx.lineWidth=1; hx.beginPath(); hx.arc(p.x, p.y-p.s*1.15, p.s*0.42, 0, Math.PI*2); hx.stroke();
+      hx.beginPath(); hx.moveTo(p.x-p.s*0.85,p.y+p.s*1.3); hx.quadraticCurveTo(p.x-p.s*0.8,p.y-p.s*0.55,p.x,p.y-p.s*0.6); hx.quadraticCurveTo(p.x+p.s*0.8,p.y-p.s*0.55,p.x+p.s*0.85,p.y+p.s*1.3); hx.stroke(); }
+  });
+  hx.font = `500 ${Math.max(9, h*0.028)}px "IBM Plex Mono", monospace`; hx.fillStyle="rgba(233,197,63,0.7)";
+  hx.fillText("WHO HOLDS THE STRINGS?", w*0.06, h*0.12);
+  lensLayers = {c, sf, hd, w, h, dpr};
+  drawLens();
+}
+function drawLens(){
+  if(!lensLayers) return; const {c, sf, hd, w, h} = lensLayers; const ctx=c.getContext("2d");
+  ctx.setTransform(1,0,0,1,0,0); ctx.drawImage(sf,0,0);
+  const x=lensState.x*c.width, y=lensState.y*c.height, R=lensState.r*Math.min(c.width,c.height)*1.6;
+  ctx.save(); ctx.beginPath(); ctx.arc(x,y,R,0,Math.PI*2); ctx.clip(); ctx.drawImage(hd,0,0); ctx.restore();
+  ctx.strokeStyle="rgba(233,197,63,0.75)"; ctx.lineWidth=2*lensLayers.dpr; ctx.beginPath(); ctx.arc(x,y,R,0,Math.PI*2); ctx.stroke();
+  ctx.strokeStyle="rgba(233,197,63,0.25)"; ctx.lineWidth=1*lensLayers.dpr; ctx.beginPath(); ctx.arc(x,y,R+6*lensLayers.dpr,0,Math.PI*2); ctx.stroke();
+  // readability shade under the title
+  const sh=ctx.createLinearGradient(0,c.height*0.35,0,c.height); sh.addColorStop(0,"rgba(10,12,15,0)"); sh.addColorStop(1,"rgba(10,12,15,0.82)");
+  ctx.fillStyle=sh; ctx.fillRect(0,0,c.width,c.height);
+}
+function startLens(){
+  const m=$("#mast"); if(!m) return;
+  buildLens();
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(lensTween){ lensTween.kill(); lensTween=null; }
+  if(window.gsap && !reduce){
+    const path = {t:0};
+    lensTween = gsap.to(path, {t:1, duration:18, repeat:-1, ease:"none", onUpdate:() => {
+      if(lensFollow) return; const a = path.t*Math.PI*2;
+      lensState.x = 0.55 + Math.sin(a)*0.3; lensState.y = 0.45 + Math.sin(a*2)*0.18; drawLens(); }});
+  }
+  const move = e => { const b=m.getBoundingClientRect(); const pt = e.touches ? e.touches[0] : e;
+    const tx=(pt.clientX-b.left)/b.width, ty=(pt.clientY-b.top)/b.height; lensFollow = true;
+    if(window.gsap && !reduce) gsap.to(lensState, {x:tx, y:ty, duration:0.35, ease:"power2.out", onUpdate:drawLens, overwrite:true});
+    else { lensState.x=tx; lensState.y=ty; drawLens(); } };
+  m.addEventListener("pointermove", move); m.addEventListener("touchmove", move, {passive:true});
+  m.addEventListener("pointerleave", () => { lensFollow = false; });
+}
+function enterAnim(){
+  if(!window.gsap || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  gsap.from("#view .lead, #view .post, #view .article h1, #view .article .dek", {y:10, duration:0.6, stagger:0.06, ease:"power2.out", clearProps:"transform"});
+}
+function route(){
+  const h = (location.hash || "#home").slice(1);
+  const post = POSTS.find(p => p.slug === h);
+  stopSpeech(); closePop();
+  const v = $("#view");
+  let nav = "home";
+  if(post){ v.innerHTML = postView(post); }
+  else if(h === "about"){ v.innerHTML = aboutView(); nav = "about"; }
+  else if(h === "quarters"){ v.innerHTML = quartersView(); nav = "quarters"; }
+  else if(h === "profile"){ v.innerHTML = profileView(); nav = "quarters"; }
+  else if(h === "calendar"){ v.innerHTML = calendarView(); nav = "calendar"; }
+  else { v.innerHTML = homeView(); }
+  document.querySelectorAll("[data-nav]").forEach(a => {
+    if(a.dataset.nav===nav) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+  });
+  document.body.classList.toggle("reading", !!post);
+  renderCalendar();
+  drawCovers();
+  startLens(); enterAnim();
+  curSlug = post ? post.slug : null;
+  if(post){ subscribeComments(post.slug); renderReacts(); renderComments(); bindCommentForm(); setupListen(); bindKeys(postUrl(post));
+    const st=$("#shareTop"); st.onclick = () => { const tb=$("#topshare"); tb.hidden = !tb.hidden; st.setAttribute("aria-expanded", !tb.hidden); }; }
+  if(h === "about") bindKeys(SITE + "/about");
+  if(h === "quarters") bindAsk();
+  const f = $("#signup");
+  if(f) f.addEventListener("submit", e => {
+    e.preventDefault();
+    const val = $("#email").value.trim();
+    $("#su-note").textContent = /^\S+@\S+\.\S+$/.test(val)
+      ? "Prototype only: sign-ups switch on at launch."
+      : "Enter an email address like name@example.com.";
+  });
+  window.scrollTo(0,0); onScroll();
+}
+
+function onScroll(){
+  const bar = $("#progress");
+  if(!document.body.classList.contains("reading")){ bar.style.transform = "scaleX(0)"; return; }
+  const max = document.documentElement.scrollHeight - innerHeight;
+  bar.style.transform = `scaleX(${max>0 ? Math.min(1, scrollY/max) : 0})`;
+}
+
+function currentTheme(){
+  const set = document.documentElement.dataset.theme;
+  if(set) return set;
+  return matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+function paintThemeBtn(){ $("#themeBtn").textContent = currentTheme()==="dark" ? "Day" : "Night"; }
+try{ const t = localStorage.getItem("t4d-theme"); if(t) document.documentElement.dataset.theme = t; }catch(e){}
+$("#themeBtn").onclick = () => {
+  const next = currentTheme()==="dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = next;
+  try{ localStorage.setItem("t4d-theme", next); }catch(e){}
+  paintThemeBtn();
+};
+paintThemeBtn();
+addEventListener("hashchange", route);
+addEventListener("scroll", onScroll, {passive:true});
+let rz; addEventListener("resize", () => { clearTimeout(rz); rz=setTimeout(() => { drawCovers(); buildLens(); },150); });
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(() => { drawCovers(); buildLens(); });
+route();
+initData();
+</script>
