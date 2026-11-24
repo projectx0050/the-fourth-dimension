@@ -1,0 +1,72 @@
+---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE, SITE_NAME, SITE_DESCRIPTION } from "../config";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: "website" | "article";
+  nav?: "home" | "about" | "calendar" | "";
+  reading?: boolean;
+  published?: Date;
+  section?: string;
+  jsonLd?: Record<string, unknown>;
+}
+const {
+  title, description = SITE_DESCRIPTION, image = `${SITE}/og/default.jpg`, imageAlt = SITE_NAME,
+  type = "website", nav = "", reading = false, published, section, jsonLd,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/\/index$/, "/").replace(/\.html$/, ""), SITE).href;
+const ld = jsonLd ?? { "@context": "https://schema.org", "@type": "WebSite", name: SITE_NAME, url: SITE + "/", description: SITE_DESCRIPTION };
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={canonical}>
+  <meta name="theme-color" content="#F3F4F1" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15181D" media="(prefers-color-scheme: dark)">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="sitemap" href="/sitemap-index.xml">
+
+  <meta property="og:site_name" content={SITE_NAME}>
+  <meta property="og:type" content={type}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:url" content={canonical}>
+  <meta property="og:image" content={image}>
+  <meta property="og:image:alt" content={imageAlt}>
+  <meta property="og:locale" content="en_GB">
+  {published && <meta property="article:published_time" content={published.toISOString()}>}
+  {section && <meta property="article:section" content={section}>}
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={image}>
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <script is:inline>try{var t=localStorage.getItem("t4d-theme");if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+</head>
+<body class={reading ? "reading" : undefined}>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <Header nav={nav} />
+  <main class="wrap" id="view">
+    <slot />
+  </main>
+  <Footer />
+  <script>
+    import "../scripts/common";
+    import "../scripts/art";
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+---
+import Base from "../layouts/Base.astro";
+import Signup from "../components/Signup.astro";
+import { SITE, SITE_NAME } from "../config";
+---
+<Base title={`About | ${SITE_NAME}`} description="You were taught to see in three. The Fourth Dimension is the layer of reality you were trained to walk past." nav="about">
+  <div class="page-narrow" data-url={`${SITE}/about`}>
+    <section class="about">
+      <h1>About The Fourth Dimension</h1>
+      <p class="dek" style="font-style:italic;color:var(--muted)">You were taught to see in three.</p>
+      <p>Length. Width. Height. School handed you three dimensions and a ruler, and told you that was the world.</p>
+      <p>It isn't. Under every street there is another street. Under every law, another law. Under every smile at the counter, a bill nobody explained.</p>
+      <p>That is the fourth dimension. Not time. Not science fiction. <span class="key">The layer of reality you were trained to walk past.</span></p>
+      <p>No tower. No name. No face. Just someone who stopped walking past.</p>
+      <p>Read slowly. Argue loudly. And if a line here turns your skin cold, don't look away.</p>
+      <p class="sign">That's the door.</p>
+    </section>
+    <Signup />
+  </div>
+</Base>
+<script>
+  import { bindKeys } from "../scripts/keys";
+  bindKeys(document.querySelector<HTMLElement>("[data-url]")!.dataset.url!);
+</script>

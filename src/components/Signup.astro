@@ -1,0 +1,29 @@
+---
+import { SUBSTACK } from "../config";
+const id = Astro.props.id ?? "su";
+---
+<section class="signup" aria-labelledby={`${id}-h`}>
+  <h3 id={`${id}-h`}>Get new posts by email</h3>
+  <p>Free. One email when a new post is out.</p>
+  <form class="signup-form" action={`${SUBSTACK}/api/v1/free?nojs=true`} method="post" target="_blank" novalidate>
+    <label for={`${id}-email`} class="sr">Email address</label>
+    <input id={`${id}-email`} name="email" type="email" placeholder="Your email" autocomplete="email">
+    <input type="hidden" name="first_url" value={Astro.url.href}>
+    <button class="btn" type="submit">Subscribe</button>
+  </form>
+  <div class="note" role="status"></div>
+</section>
+<script>
+  document.querySelectorAll<HTMLFormElement>(".signup-form").forEach((f) => {
+    f.addEventListener("submit", (e) => {
+      const note = f.parentElement!.querySelector(".note")!;
+      const val = (f.querySelector("input[type=email]") as HTMLInputElement).value.trim();
+      if (!/^\S+@\S+\.\S+$/.test(val)) {
+        e.preventDefault();
+        note.textContent = "Enter an email address like name@example.com.";
+        return;
+      }
+      note.textContent = "Almost done: check your inbox to confirm.";
+    });
+  });
+</script>

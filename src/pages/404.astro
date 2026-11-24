@@ -1,0 +1,13 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE_NAME } from "../config";
+---
+<Base title={`Page not found | ${SITE_NAME}`} description="This page isn't here.">
+  <div class="page-narrow">
+    <section class="about nf">
+      <h1>Nothing under this street.</h1>
+      <p>The page you were looking for isn't here. Maybe it moved. Maybe it never existed.</p>
+      <p><a class="more" href="/">&larr; All posts</a></p>
+    </section>
+  </div>
+</Base>

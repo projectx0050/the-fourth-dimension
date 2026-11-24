@@ -1,0 +1,15 @@
+---
+const { nav } = Astro.props as { nav: string };
+const links = [["/", "home", "Blog"], ["/about", "about", "About"], ["/calendar", "calendar", "Calendar"]];
+---
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/">The Fourth <span>Dimension</span></a>
+    <nav class="nav" aria-label="Main">
+      {links.map(([href, key, label]) => (
+        <a href={href} data-nav={key} aria-current={nav === key ? "page" : undefined}>{label}</a>
+      ))}
+      <button id="themeBtn" type="button" aria-label="Switch light or dark mode">Night</button>
+    </nav>
+  </div>
+</header>

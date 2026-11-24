@@ -1,0 +1,12 @@
+---
+import Base from "../layouts/Base.astro";
+import Calendar from "../components/Calendar.astro";
+import { SITE_NAME } from "../config";
+---
+<Base title={`Days the World Watches | ${SITE_NAME}`} description="International days, elections and moments that touch everyone. We write around them, and sometimes under them." nav="calendar">
+  <div class="page-narrow">
+    <section class="about"><h1>Days the World Watches</h1>
+      <p>International days, elections and moments that touch everyone. We write around them, and sometimes under them.</p></section>
+    <Calendar />
+  </div>
+</Base>

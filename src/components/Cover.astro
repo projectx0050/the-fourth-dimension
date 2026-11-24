@@ -1,0 +1,11 @@
+---
+import type { Post } from "../lib";
+const { post, kind } = Astro.props as { post: Post; kind: "cover" | "thumb" };
+const d = post.data;
+const src = kind === "thumb" ? d.thumb || d.cover : d.cover;
+---
+{kind === "thumb" && src && <img class="thumb" src={src} alt="" loading="lazy" width="96" height="96">}
+{kind === "cover" && src && <img class="cover" src={src} alt={`Cover art for ${d.title}`}>}
+{!src && (kind === "cover"
+  ? <canvas class="cover" data-cover={post.id} role="img" aria-label={`Cover art for ${d.title}`}></canvas>
+  : <canvas class="thumb" data-cover={post.id}></canvas>)}

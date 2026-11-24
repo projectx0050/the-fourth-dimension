@@ -1,0 +1,56 @@
+---
+import Base from "../layouts/Base.astro";
+import Signup from "../components/Signup.astro";
+import Calendar from "../components/Calendar.astro";
+import Cover from "../components/Cover.astro";
+import upcoming from "../data/upcoming.json";
+import { getPosts, fmtDate, postPath } from "../lib";
+import { SITE, SITE_NAME, TAGLINE, SITE_DESCRIPTION } from "../config";
+
+const [lead, ...rest] = await getPosts();
+const jsonLd = {
+  "@context": "https://schema.org", "@type": "Blog", name: SITE_NAME, url: SITE + "/", description: SITE_DESCRIPTION,
+  blogPost: [lead, ...rest].map((p) => ({ "@type": "BlogPosting", headline: p.data.title, url: `${SITE}/${p.id}`, datePublished: p.data.date.toISOString() })),
+};
+---
+<Base title={`${SITE_NAME}: ${TAGLINE}`} nav="home" jsonLd={jsonLd}>
+  <section class="mast" id="mast">
+    <canvas id="lens" aria-hidden="true"></canvas>
+    <h1><span class="ghost" data-t="The Fourth">The Fourth</span><span class="ghost" data-t="Dimension">Dimension</span></h1>
+    <p class="tag">{TAGLINE}</p>
+    <p class="mast-hint">Move the lens. Look under the street.</p>
+  </section>
+  <div class="home">
+    <div class="main-col">
+      <article class="lead">
+        <a class="cover-link" href={postPath(lead)} aria-hidden="true" tabindex="-1"><Cover post={lead} kind="cover" /></a>
+        <div class="meta"><span class="front">{lead.data.front}</span><span>{fmtDate(lead.data.date)}</span><span>{lead.data.read}</span></div>
+        <h2><a href={postPath(lead)}>{lead.data.title}</a></h2>
+        <p>{lead.data.dek}</p>
+        <a class="more" href={postPath(lead)}>Read more &rarr;</a>
+      </article>
+      <div class="label">Latest</div>
+      <div class="posts">
+        {rest.map((p) => (
+          <article class="post">
+            <div>
+              <div class="meta"><span class="front">{p.data.front}</span><span>{fmtDate(p.data.date)}</span><span>{p.data.read}</span></div>
+              <h3><a href={postPath(p)}>{p.data.title}</a></h3>
+              <p>{p.data.dek}</p>
+              <a class="more" href={postPath(p)}>Read more &rarr;</a>
+            </div>
+            <a href={postPath(p)} aria-hidden="true" tabindex="-1"><Cover post={p} kind="thumb" /></a>
+          </article>
+        ))}
+      </div>
+      <div class="label">Coming soon</div>
+      <ul class="upcoming">{upcoming.map(([t, f]) => <li>{t}<span>{f}</span></li>)}</ul>
+    </div>
+    <aside class="side">
+      <Signup />
+      <div class="label">This month on Earth</div>
+      <Calendar />
+    </aside>
+  </div>
+</Base>
+<script>import "../scripts/lens";</script>

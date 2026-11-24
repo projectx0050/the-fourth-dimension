@@ -1,0 +1,8 @@
+---
+import events from "../data/events.json";
+---
+<div class="cal" id="cal" data-events={JSON.stringify(events)}></div>
+<script>
+  import { initCalendar } from "../scripts/calendar";
+  initCalendar();
+</script>

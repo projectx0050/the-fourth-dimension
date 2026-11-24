@@ -1,0 +1,11 @@
+---
+import { TAGLINE, SITE_NAME } from "../config";
+const year = new Date().getFullYear();
+---
+<div class="wrap">
+  <footer>
+    <span>{TAGLINE}</span>
+    <span>{SITE_NAME} · {year}</span>
+    <span style="flex-basis:100%">Powered by GnS</span>
+  </footer>
+</div>
