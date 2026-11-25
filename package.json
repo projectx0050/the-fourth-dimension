@@ -10,6 +10,7 @@
     "og": "node scripts/render-og.mjs"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.12",
     "@astrojs/sitemap": "3.6.1",
     "astro": "5.18.2",
     "gsap": "3.15.1"
